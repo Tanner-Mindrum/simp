@@ -11,14 +11,13 @@ import java.awt.*;
 
 public class Main extends Application {
 
-    @FXML
-    private Label dayNumberLabel;
-
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("SIMP");
-        primaryStage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("sample/style.css");
+        primaryStage.setScene(scene);
         primaryStage.setResizable(true);
         primaryStage.show();
     }

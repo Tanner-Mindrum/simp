@@ -6,12 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.skin.LabeledSkinBase;
+import javafx.scene.paint.Paint;
 
-import java.awt.*;
-import java.text.SimpleDateFormat;
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.HashMap;
 
 public class Controller {
 
@@ -41,16 +41,52 @@ public class Controller {
     private String[] daysOfWeek = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday"};
 
+    private HashMap<String, Integer> monthsOfYear = new HashMap<String, Integer>();
+
     private int addTaskButtonClickCount;
+
+    @FXML
+    private Button monthButton;
+    @FXML
+    private Button OctButton;
+    private Button currentMonth;
+
+    private int selectedYear;
+    private int selectedMonth;
 
 
     @FXML
     private void initialize() {
+        // Gets the Calendar
         Calendar calendar = Calendar.getInstance();
+        // Gets and displays the current date
         String todayNumber = Integer.toString(calendar.get(Calendar.DATE));
         String todayFullName = daysOfWeek[calendar.get(Calendar.DAY_OF_WEEK) - 1];
         dayNumberLabelId.setText(todayNumber);
         dayLabel.setText(todayFullName.toUpperCase());
+
+        monthsOfYear.put("Jan", 1); monthsOfYear.put("Feb", 2); monthsOfYear.put("Mar", 3);
+        monthsOfYear.put("Apr", 4); monthsOfYear.put("May", 5); monthsOfYear.put("Jun", 6);
+        monthsOfYear.put("Jul", 7); monthsOfYear.put("Aug", 8); monthsOfYear.put("Sep", 9);
+        monthsOfYear.put("Oct", 10); monthsOfYear.put("Nov", 11); monthsOfYear.put("Dec", 12);
+
+
+        // TODO: Change which month it currently is, replace which days are in there
+        currentMonth = OctButton;
+
+        // Gets current month, january starts at 0
+//        int currentMonth = calendar.get(Calendar.MONTH);
+//        selectedMonth = currentMonth;
+//        System.out.println("Current Month: " + currentMonth);
+//        int currentYear = calendar.get(Calendar.YEAR);
+//        selectedYear = currentYear;
+//        System.out.println("Current Year: " + currentYear);
+//        // Getting first of the month
+//        YearMonth yearMonthObject = YearMonth.of(currentYear, currentMonth + 1);
+//        int daysInMonth = yearMonthObject.lengthOfMonth();
+//        System.out.println(daysInMonth);
+//        System.out.println("First day of the month is: " + yearMonthObject.atDay(1).getDayOfWeek());
+
 
         SUNLabel.setStyle("-fx-font-weight: bold;");
         MONLabel.setStyle("-fx-font-weight: bold;");
@@ -62,6 +98,30 @@ public class Controller {
 
         addTaskButtonClickCount = 0;
     }
+
+    public void updateCalendarMonth(int selectedMonth){
+        YearMonth selectedYearMonth = YearMonth.of(selectedYear, selectedMonth);
+        int daysInMonth = selectedYearMonth.lengthOfMonth();
+        System.out.println(daysInMonth);
+        System.out.println("First day of the month is: " + selectedYearMonth.atDay(1).getDayOfWeek());
+        // Change button labels to update calendar
+    }
+
+
+
+    public void clickedMonths(ActionEvent event) {
+        monthButton = (Button) event.getSource();
+        String clickedButtonMonth = monthButton.getText();
+        String monthButtonText = monthButton.getText();
+        if (monthButton != currentMonth) {
+            currentMonth.setTextFill(Paint.valueOf("#868686"));
+            currentMonth.setStyle("-fx-font-weight: Normal; -fx-background-color: transparent");
+            currentMonth = monthButton;
+            currentMonth.setTextFill(Paint.valueOf(("#171717")));
+            currentMonth.setStyle("-fx-background-color: transparent; -fx-font-weight: Bold");
+        }
+    }
+
 
     public void pressButton(ActionEvent event) {
         try {

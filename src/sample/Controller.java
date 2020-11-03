@@ -7,11 +7,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.skin.LabeledSkinBase;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 
 public class Controller {
 
@@ -52,6 +61,8 @@ public class Controller {
         dayNumberLabelId.setText(todayNumber);
         dayLabel.setText(todayFullName.toUpperCase());
 
+        updateTaskList(todayNumber);
+
         SUNLabel.setStyle("-fx-font-weight: bold;");
         MONLabel.setStyle("-fx-font-weight: bold;");
         TUELabel.setStyle("-fx-font-weight: bold;");
@@ -69,13 +80,7 @@ public class Controller {
             String clickedButtonDay = (clickedButton.getText());
             Integer.parseInt(clickedButtonDay);
             dayNumberLabelId.setText(clickedButtonDay);
-
-            if (clickedButtonDay.equals("23")) {
-                dayLabel.setText("FRIDAY");
-            }
-            else if (clickedButtonDay.equals("24")) {
-                dayLabel.setText("SATURDAY");
-            }
+            updateTaskList(clickedButtonDay);
         }
         catch (NumberFormatException ignored) {}
     }
@@ -83,6 +88,7 @@ public class Controller {
     public void addEvent(ActionEvent event) {
         addTaskButtonClickCount++;
 
+        System.out.println(dayNumberLabelId.getText());
         String enteredTask = taskField.getText();
         if (enteredTask.length() > 0) {
             if (addTaskButtonClickCount == 1) {
@@ -91,6 +97,39 @@ public class Controller {
             else {
                 taskTextArea.setText(taskTextArea.getText() + "\n-    " + enteredTask);
             }
+        }
+    }
+
+    /**
+     * Searches through JSON database and checks if an object exists with the current day selected.
+     * Updates the text area with tasks if object exists, otherwise sets text to default
+     * "no tasks exist yet" message
+     * @param currentDay
+     */
+    public void updateTaskList(String currentDay) {
+        JSONParser parser = new JSONParser();
+        try (Reader reader = new FileReader("src\\sample\\db.json")) {
+            JSONArray jsonArray = (JSONArray) parser.parse(reader);
+            boolean dayClickedFound = false;
+            for (Object obj : jsonArray) {
+                JSONObject jsonObj = (JSONObject) obj;
+                if (jsonObj.get("day").equals(currentDay)) {
+                    dayClickedFound = true;
+                    JSONArray taskArray = (JSONArray) jsonObj.get("tasks");
+                    StringBuilder listOfTasks = new StringBuilder();
+                    for (Object task : taskArray) {
+                        listOfTasks.append("\n-    ").append((String) task);
+                    }
+                    taskTextArea.setText("Current Tasks:" + listOfTasks);
+                    break;
+                }
+            }
+            if (!dayClickedFound) {
+                taskTextArea.setText("Current Tasks:" + "\n-    There are no tasks");
+            }
+        }
+        catch (IOException | ParseException e) {
+            e.printStackTrace();
         }
     }
 }

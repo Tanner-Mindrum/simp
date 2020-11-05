@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Paint;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -45,9 +46,6 @@ public class Controller {
     private String[] daysOfWeek = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday"};
 
-    private int addTaskButtonClickCount;
-
-
     @FXML
     private void initialize() {
         Calendar calendar = Calendar.getInstance();
@@ -65,8 +63,6 @@ public class Controller {
         THULabel.setStyle("-fx-font-weight: bold;");
         FRILabel.setStyle("-fx-font-weight: bold;");
         SATLabel.setStyle("-fx-font-weight: bold;");
-
-        addTaskButtonClickCount = 0;
     }
 
     public void pressButton(ActionEvent event) {
@@ -83,33 +79,47 @@ public class Controller {
     }
 
     public void addEvent(ActionEvent event) {
-        addTaskButtonClickCount++;
+        JSONParser parser = new JSONParser();
+        try (Reader reader = new FileReader("src\\sample\\db.json")) {
+            // Get JSONArray of days with tasks
+            JSONArray jsonArray = (JSONArray) parser.parse(reader);
 
-        System.out.println(dayNumberLabelId.getText());
-        String enteredTask = taskField.getText();
-        if (enteredTask.length() > 0) {
-            if (addTaskButtonClickCount == 1) {
-                taskTextArea.setText("Current Tasks:\n-    " + enteredTask);
+            boolean dayFound = false;
+            for (Object obj : jsonArray) {
+                JSONObject jsonObj = (JSONObject) obj;
+                //
+                if (jsonObj.get("day").equals(dayNumberLabelId)) {
+                    dayFound = true;
+                    JSONArray taskArray = (JSONArray) jsonObj.get("tasks");
+                    taskArray.add(taskField.getText());
+                }
             }
-            else {
-                taskTextArea.setText(taskTextArea.getText() + "\n-    " + enteredTask);
+
+            if (!dayFound) {
+
             }
+        }
+        catch (IOException | ParseException e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * Searches through JSON database and checks if an object exists with the current day selected.
      * Updates the text area with tasks if object exists, otherwise sets text to default
-     * "no tasks exist yet" message
-     * @param currentDay
+     * no tasks exist yet message
+     * @param currentDay - the day number
      */
     public void updateTaskList(String currentDay) {
         JSONParser parser = new JSONParser();
         try (Reader reader = new FileReader("src\\sample\\db.json")) {
+            // Get JSONArray of days with tasks
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
+
             boolean dayClickedFound = false;
             for (Object obj : jsonArray) {
                 JSONObject jsonObj = (JSONObject) obj;
+                //
                 if (jsonObj.get("day").equals(currentDay)) {
                     dayClickedFound = true;
                     JSONArray taskArray = (JSONArray) jsonObj.get("tasks");

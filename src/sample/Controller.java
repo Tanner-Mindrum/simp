@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
+import javafx.scene.layout.GridPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,6 +19,7 @@ import java.text.ParseException;
 import java.time.YearMonth;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Calendar;
 
 public class Controller {
 
@@ -136,6 +138,8 @@ public class Controller {
             String clickedButtonDay = (clickedButton.getText());
             Integer.parseInt(clickedButtonDay);
             dayNumberLabelId.setText(clickedButtonDay);
+            String todayFullName = daysOfWeek[GridPane.getColumnIndex(clickedButton)];
+            dayLabel.setText(todayFullName.toUpperCase());
             updateTaskList(clickedButtonDay);
         }
         catch (NumberFormatException ignored) {}

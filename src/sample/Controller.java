@@ -6,20 +6,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
 
 public class Controller {
 
@@ -79,6 +75,8 @@ public class Controller {
             String clickedButtonDay = (clickedButton.getText());
             Integer.parseInt(clickedButtonDay);
             dayNumberLabelId.setText(clickedButtonDay);
+            String todayFullName = daysOfWeek[GridPane.getColumnIndex(clickedButton)];
+            dayLabel.setText(todayFullName.toUpperCase());
             updateTaskList(clickedButtonDay);
         }
         catch (NumberFormatException ignored) {}

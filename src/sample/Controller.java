@@ -60,10 +60,32 @@ public class Controller {
     private TextArea taskTextArea;
 
     @FXML
-    private Button OctButton;
-    private Button monthButton;
+    private Button janButton;
+    @FXML
+    private Button febButton;
+    @FXML
+    private Button marButton;
+    @FXML
+    private Button aprButton;
+    @FXML
+    private Button mayButton;
+    @FXML
+    private Button junButton;
+    @FXML
+    private Button julButton;
+    @FXML
+    private Button augButton;
+    @FXML
+    private Button sepButton;
+    @FXML
+    private Button octButton;
+    @FXML
+    private Button novButton;
+    @FXML
+    private Button decButton;
+
     private Button currentMonth;
-    private int selectedYear;
+
     // Button to change years up and down
     @FXML
     private Button yearButton;
@@ -73,23 +95,28 @@ public class Controller {
     public int currentYear, thisMonth;
 
 
-    private String[] daysOfWeek = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday",
+    private final String[] daysOfWeek = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday"};
 
-    private int[] daysInMonth = new int[] {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    private final int[] daysInMonth = new int[] {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    private HashMap<String, Integer> monthsOfYear = new HashMap<String, Integer>();
+    private Button[] monthButtons = new Button[12];
+
+    private final HashMap<String, Integer> monthsOfYear = new HashMap<String, Integer>();
 
     private int addTaskButtonClickCount;
 
     private int selectedMonth;
 
     public Controller() {
+
     }
 
 
     @FXML
     private void initialize() {
+        //Had to be instantiated in here or else it was null
+        monthButtons = new Button[] {janButton, febButton, marButton, aprButton, mayButton, junButton, julButton, augButton, sepButton, octButton, novButton, decButton};
         // Gets the Calendar
         Calendar calendar = Calendar.getInstance();
 
@@ -104,14 +131,19 @@ public class Controller {
 
         updateCalendar(calendar);
 
+//        System.out.println(thisMonth);
+        currentMonth = monthButtons[thisMonth];
+
+//        System.out.println(currentMonth.getText());
+
+        currentMonth.setTextFill(Paint.valueOf(("#171717")));
+        currentMonth.setStyle("-fx-background-color: transparent; -fx-font-weight: Bold");
+
         monthsOfYear.put("Jan", 1); monthsOfYear.put("Feb", 2); monthsOfYear.put("Mar", 3);
         monthsOfYear.put("Apr", 4); monthsOfYear.put("May", 5); monthsOfYear.put("Jun", 6);
         monthsOfYear.put("Jul", 7); monthsOfYear.put("Aug", 8); monthsOfYear.put("Sep", 9);
         monthsOfYear.put("Oct", 10); monthsOfYear.put("Nov", 11); monthsOfYear.put("Dec", 12);
 
-
-        // TODO: Change which month it currently is, replace which days are in there
-        currentMonth = OctButton;
 
 
         // Gets current month, january starts at 0
@@ -128,7 +160,6 @@ public class Controller {
 //        System.out.println("First day of the month is: " + yearMonthObject.atDay(1).getDayOfWeek());
 
         updateTaskList(todayNumber);
-        this.currentMonth = OctButton;
         SUNLabel.setStyle("-fx-font-weight: bold;");
         MONLabel.setStyle("-fx-font-weight: bold;");
         TUELabel.setStyle("-fx-font-weight: bold;");
@@ -186,7 +217,7 @@ public class Controller {
 
 
     public void clickedMonths(ActionEvent event) {
-        monthButton = (Button) event.getSource();
+        Button monthButton = (Button) event.getSource();
         String clickedButtonMonth = monthButton.getText();
         String monthButtonText = monthButton.getText();
         if (monthButton != currentMonth) {

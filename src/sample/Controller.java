@@ -178,7 +178,6 @@ public class Controller {
             currentYear -= 1;
             yearLabel.setText(String.valueOf(currentYear));
         }
-        System.out.println("Month: "+thisMonth+" Year: "+currentYear);
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MONTH, thisMonth);
         cal.set(Calendar.YEAR, currentYear);
@@ -240,7 +239,6 @@ public class Controller {
 
     public void updateCalendar(Calendar calendar) {
         thisMonth = calendar.get(Calendar.MONTH);
-        System.out.println(thisMonth);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         int previousMonth;
         int lastMonthDays;

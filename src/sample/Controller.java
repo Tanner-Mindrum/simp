@@ -80,7 +80,6 @@ public class Controller {
 
     private HashMap<String, Integer> monthsOfYear = new HashMap<String, Integer>();
 
-    private int currentDayOfWeek;
     private int thisMonth;
 
 
@@ -202,26 +201,20 @@ public class Controller {
 
     public void pressButton(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
-        System.out.println(clickedButton.getTextFill());
         if(clickedButton.getTextFill().equals(Paint.valueOf("#959595"))) {
-            System.out.println("Not moving month");
             updateCurrentDay(clickedButton);
         }
         else {
             if(GridPane.getRowIndex(clickedButton) == 0) {
-                System.out.println("Moving month back");
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.MONTH, thisMonth - 1);
                 updateCurrentDay(clickedButton);
-                System.out.println(calendar.getTime());
                 updateCalendar(calendar);
             }
             else {
-                System.out.println("Moving month forward");
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.MONTH, thisMonth + 1);
                 updateCurrentDay(clickedButton);
-                System.out.println(calendar.getTime());
                 updateCalendar(calendar);
             }
         }
@@ -232,9 +225,7 @@ public class Controller {
             String clickedButtonDay = (clickedButton.getText());
             dayNumberLabelId.setText(clickedButtonDay);
 
-            currentDayOfWeek = GridPane.getColumnIndex(clickedButton);
-            String todayFullName = daysOfWeek[currentDayOfWeek];
-            currentDayOfWeek++;
+            String todayFullName = daysOfWeek[GridPane.getColumnIndex(clickedButton)];
 
             dayLabel.setText(todayFullName.toUpperCase());
             updateTaskList(clickedButtonDay);
@@ -247,10 +238,10 @@ public class Controller {
         thisMonth = calendar.get(Calendar.MONTH);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         int previousMonth;
+        int lastMonthDays;
 
         int startOfMonth = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-        int lastMonthDays;
-        System.out.println("Start of month:" + startOfMonth);
+
         if(startOfMonth == 0) startOfMonth += 7;
         if(thisMonth == 0) {
             previousMonth = 11;
@@ -260,8 +251,6 @@ public class Controller {
         }
         lastMonthDays = daysInMonth[previousMonth] - (startOfMonth - 1);
 
-        System.out.println("Days to add before: " + lastMonthDays);
-
         int thisMonthDays = 1;
         int nextMonthDays = 1;
         for (Node node : gridPane.getChildren()) {
@@ -269,19 +258,16 @@ public class Controller {
             for (Node innerNode : a.getChildren()) {
                 Button current = (Button) innerNode;
                 if(lastMonthDays <= daysInMonth[previousMonth]) {
-                    //System.out.println("Add last month: " + lastMonthDays);
                     current.setText(String.valueOf(lastMonthDays));
                     current.setTextFill(Paint.valueOf("#ccc"));
                     lastMonthDays++;
                 }
                 else if(thisMonthDays <= daysInMonth[thisMonth]) {
-                    //System.out.println("Add this month: " + thisMonthDays);
                     current.setText(String.valueOf(thisMonthDays));
                     current.setTextFill(Paint.valueOf("#959595"));
                     thisMonthDays++;
                 }
                 else {
-                    //System.out.println("Add next month: " + nextMonthDays);
                     current.setText(String.valueOf(nextMonthDays));
                     current.setTextFill(Paint.valueOf("#ccc"));
                     nextMonthDays++;

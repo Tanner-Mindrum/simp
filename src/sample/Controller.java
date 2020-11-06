@@ -58,10 +58,10 @@ public class Controller {
     private TextField taskField;
     @FXML
     private TextArea taskTextArea;
-    @FXML
-    private Button monthButton;
+
     @FXML
     private Button OctButton;
+    private Button monthButton;
     private Button currentMonth;
     private int selectedYear;
     // Button to change years up and down
@@ -70,7 +70,7 @@ public class Controller {
     @FXML
     private Label yearLabel;
 
-    public int currentYear;
+    public int currentYear, thisMonth;
 
 
     private String[] daysOfWeek = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday",
@@ -80,11 +80,7 @@ public class Controller {
 
     private HashMap<String, Integer> monthsOfYear = new HashMap<String, Integer>();
 
-    private int thisMonth;
-
-
     private int addTaskButtonClickCount;
-
 
     private int selectedMonth;
 
@@ -152,10 +148,10 @@ public class Controller {
 //        System.out.println(daysInMonth);
 //        System.out.println("First day of the month is:" + yearMonthObject.atDay(1).getDayOfWeek());
 
-        monthsOfYear.put("Jan", 1); monthsOfYear.put("Feb", 2); monthsOfYear.put("Mar", 3);
-        monthsOfYear.put("Apr", 4); monthsOfYear.put("May", 5); monthsOfYear.put("Jun", 6);
-        monthsOfYear.put("Jul", 7); monthsOfYear.put("Aug", 8); monthsOfYear.put("Sep", 9);
-        monthsOfYear.put("Oct", 10); monthsOfYear.put("Nov", 11); monthsOfYear.put("Dec", 12);
+//        monthsOfYear.put("Jan", 1); monthsOfYear.put("Feb", 2); monthsOfYear.put("Mar", 3);
+//        monthsOfYear.put("Apr", 4); monthsOfYear.put("May", 5); monthsOfYear.put("Jun", 6);
+//        monthsOfYear.put("Jul", 7); monthsOfYear.put("Aug", 8); monthsOfYear.put("Sep", 9);
+//        monthsOfYear.put("Oct", 10); monthsOfYear.put("Nov", 11); monthsOfYear.put("Dec", 12);
         addTaskButtonClickCount = 0;
     }
 
@@ -182,6 +178,11 @@ public class Controller {
             currentYear -= 1;
             yearLabel.setText(String.valueOf(currentYear));
         }
+        System.out.println("Month: "+thisMonth+" Year: "+currentYear);
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, thisMonth);
+        cal.set(Calendar.YEAR, currentYear);
+        updateCalendar(cal);
     }
 
 
@@ -195,6 +196,9 @@ public class Controller {
             currentMonth = monthButton;
             currentMonth.setTextFill(Paint.valueOf(("#171717")));
             currentMonth.setStyle("-fx-background-color: transparent; -fx-font-weight: Bold");
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.MONTH, monthsOfYear.get(currentMonth.getText()) - 1);
+            updateCalendar(cal);
         }
     }
 
@@ -236,6 +240,7 @@ public class Controller {
 
     public void updateCalendar(Calendar calendar) {
         thisMonth = calendar.get(Calendar.MONTH);
+        System.out.println(thisMonth);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         int previousMonth;
         int lastMonthDays;

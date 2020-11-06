@@ -80,7 +80,7 @@ public class Controller {
 
     private HashMap<String, Integer> monthsOfYear = new HashMap<String, Integer>();
 
-    private int currentDay, currentDayOfWeek;
+    private int currentDayOfWeek;
     private int thisMonth;
 
 
@@ -249,7 +249,7 @@ public class Controller {
         int previousMonth;
 
         int startOfMonth = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-        int lastMonthDays = 0;
+        int lastMonthDays;
         System.out.println("Start of month:" + startOfMonth);
         if(startOfMonth == 0) startOfMonth += 7;
         if(thisMonth == 0) {

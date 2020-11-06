@@ -8,12 +8,12 @@
     <children>
         <Pane prefHeight="476.0" prefWidth="321.0" style="-fx-background-color: rgba(53,89,119,0.8)" styleClass="taskSection">
             <children>
-                <Label id="dayNumberLabel" fx:id="dayNumberLabelId" alignment="CENTER" contentDisplay="CENTER" layoutX="109.0" layoutY="49.0" text="19" textAlignment="CENTER" textFill="WHITE">
+                <Label id="dayNumberLabel" fx:id="dayNumberLabelId" alignment="CENTER" contentDisplay="CENTER" minWidth="100" layoutX="109.0" layoutY="49.0" text="0" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="90.0" />
                     </font>
                 </Label>
-                <Label fx:id="dayLabel" alignment="CENTER" layoutX="95.0" layoutY="167.0" text="MONDAY" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="dayLabel" alignment="CENTER" minWidth="100" layoutX="109.0" layoutY="167.0" text="MONDAY" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -463,52 +463,52 @@
                 <Font size="16.0" />
             </font>
         </Label>
-        <Button layoutX="350.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Jan" textFill="#868686">
+        <Button fx:id="janButton" layoutX="350.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Jan" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="388.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Feb" textFill="#868686">
+        <Button fx:id="febButton" layoutX="388.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Feb" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="428.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Mar" textFill="#868686">
+        <Button fx:id="marButton" layoutX="428.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Mar" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="470.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Apr" textFill="#868686">
+        <Button fx:id="aprButton" layoutX="470.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Apr" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="510.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="May" textFill="#868686">
+        <Button fx:id="mayButton" layoutX="510.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="May" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="552.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Jun" textFill="#868686">
+        <Button fx:id="junButton" layoutX="552.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Jun" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="590.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Jul" textFill="#868686">
+        <Button fx:id="julButton" layoutX="590.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Jul" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="626.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Aug" textFill="#868686">
+        <Button fx:id="augButton" layoutX="626.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Aug" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="668.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Sep" textFill="#868686">
+        <Button fx:id="sepButton" layoutX="668.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Sep" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button fx:id="OctButton" layoutX="708.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="Oct" textFill="#171717">
+        <Button fx:id="octButton" layoutX="708.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Oct" textFill="#868686">
 <!--        <Button fx:id="OctButton" layoutX="708.0" layoutY="70.0" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="Oct" textFill="#171717">-->
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="748.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Nov" textFill="#868686">
+        <Button fx:id="novButton" layoutX="748.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Nov" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="791.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Dec" textFill="#868686">
+        <Button fx:id="decButton" layoutX="791.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Dec" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>

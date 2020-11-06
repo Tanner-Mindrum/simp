@@ -2,10 +2,12 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 
 import javafx.scene.layout.GridPane;
@@ -32,6 +34,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 public class Controller {
 
+    @FXML
+    private GridPane gridPane;
     @FXML
     private Label dayNumberLabelId;
     @FXML
@@ -72,8 +76,12 @@ public class Controller {
     private String[] daysOfWeek = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday"};
 
+    private int[] daysInMonth = new int[] {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     private HashMap<String, Integer> monthsOfYear = new HashMap<String, Integer>();
+
+    private int currentDay, currentDayOfWeek;
+    private int thisMonth;
 
 
     private int addTaskButtonClickCount;
@@ -81,11 +89,16 @@ public class Controller {
 
     private int selectedMonth;
 
+    public Controller() {
+    }
+
 
     @FXML
     private void initialize() {
         // Gets the Calendar
         Calendar calendar = Calendar.getInstance();
+
+        thisMonth = calendar.get(Calendar.MONTH);
         // Gets and displays the current date
         String todayNumber = Integer.toString(calendar.get(Calendar.DATE));
         String todayFullName = daysOfWeek[calendar.get(Calendar.DAY_OF_WEEK) - 1];
@@ -93,6 +106,8 @@ public class Controller {
         System.out.println("CURRENT YEAR: " + currentYear);
         dayNumberLabelId.setText(todayNumber);
         dayLabel.setText(todayFullName.toUpperCase());
+
+        updateCalendar(calendar);
 
         monthsOfYear.put("Jan", 1); monthsOfYear.put("Feb", 2); monthsOfYear.put("Mar", 3);
         monthsOfYear.put("Apr", 4); monthsOfYear.put("May", 5); monthsOfYear.put("Jun", 6);
@@ -186,16 +201,93 @@ public class Controller {
 
 
     public void pressButton(ActionEvent event) {
+        Button clickedButton = (Button) event.getSource();
+        System.out.println(clickedButton.getTextFill());
+        if(clickedButton.getTextFill().equals(Paint.valueOf("#959595"))) {
+            System.out.println("Not moving month");
+            updateCurrentDay(clickedButton);
+        }
+        else {
+            if(GridPane.getRowIndex(clickedButton) == 0) {
+                System.out.println("Moving month back");
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.MONTH, thisMonth - 1);
+                updateCurrentDay(clickedButton);
+                System.out.println(calendar.getTime());
+                updateCalendar(calendar);
+            }
+            else {
+                System.out.println("Moving month forward");
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.MONTH, thisMonth + 1);
+                updateCurrentDay(clickedButton);
+                System.out.println(calendar.getTime());
+                updateCalendar(calendar);
+            }
+        }
+    }
+
+    public void updateCurrentDay(Button clickedButton) {
         try {
-            Button clickedButton = (Button) event.getSource();
             String clickedButtonDay = (clickedButton.getText());
-            Integer.parseInt(clickedButtonDay);
             dayNumberLabelId.setText(clickedButtonDay);
-            String todayFullName = daysOfWeek[GridPane.getColumnIndex(clickedButton)];
+
+            currentDayOfWeek = GridPane.getColumnIndex(clickedButton);
+            String todayFullName = daysOfWeek[currentDayOfWeek];
+            currentDayOfWeek++;
+
             dayLabel.setText(todayFullName.toUpperCase());
             updateTaskList(clickedButtonDay);
+        } catch (NumberFormatException ignored) {
         }
-        catch (NumberFormatException ignored) {}
+    }
+
+
+    public void updateCalendar(Calendar calendar) {
+        thisMonth = calendar.get(Calendar.MONTH);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        int previousMonth;
+
+        int startOfMonth = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        int lastMonthDays = 0;
+        System.out.println("Start of month:" + startOfMonth);
+        if(startOfMonth == 0) startOfMonth += 7;
+        if(thisMonth == 0) {
+            previousMonth = 11;
+        }
+        else {
+            previousMonth = thisMonth - 1;
+        }
+        lastMonthDays = daysInMonth[previousMonth] - (startOfMonth - 1);
+
+        System.out.println("Days to add before: " + lastMonthDays);
+
+        int thisMonthDays = 1;
+        int nextMonthDays = 1;
+        for (Node node : gridPane.getChildren()) {
+            AnchorPane a = (AnchorPane) node;
+            for (Node innerNode : a.getChildren()) {
+                Button current = (Button) innerNode;
+                if(lastMonthDays <= daysInMonth[previousMonth]) {
+                    //System.out.println("Add last month: " + lastMonthDays);
+                    current.setText(String.valueOf(lastMonthDays));
+                    current.setTextFill(Paint.valueOf("#ccc"));
+                    lastMonthDays++;
+                }
+                else if(thisMonthDays <= daysInMonth[thisMonth]) {
+                    //System.out.println("Add this month: " + thisMonthDays);
+                    current.setText(String.valueOf(thisMonthDays));
+                    current.setTextFill(Paint.valueOf("#959595"));
+                    thisMonthDays++;
+                }
+                else {
+                    //System.out.println("Add next month: " + nextMonthDays);
+                    current.setText(String.valueOf(nextMonthDays));
+                    current.setTextFill(Paint.valueOf("#ccc"));
+                    nextMonthDays++;
+                }
+            }
+        }
     }
 
     public void addEvent(ActionEvent event) {
@@ -232,7 +324,7 @@ public class Controller {
      */
     public void updateTaskList(String currentDay) {
         JSONParser parser = new JSONParser();
-        try (Reader reader = new FileReader("simp\\src\\sample\\db.json")) {
+        try (Reader reader = new FileReader("src\\sample\\db.json")) {
 //        try (Reader reader = new FileReader("src\\sample\\db.json")) {
             // Get JSONArray of days with tasks
             JSONArray jsonArray = (JSONArray) parser.parse(reader);

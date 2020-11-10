@@ -11,9 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,16 +20,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
-import java.time.YearMonth;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Calendar;
-import java.text.SimpleDateFormat;
-import java.time.YearMonth;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
+
 public class Controller {
 
     @FXML
@@ -221,7 +211,6 @@ public class Controller {
             if(GridPane.getRowIndex(clickedButton) == 0) {
                 Calendar calendar = Calendar.getInstance();                         //Get a calendar instance
                 calendar.set(Calendar.MONTH, thisMonth - 1);                        //Set month to previous month of current month
-                if(thisMonth == 0) calendar.set(Calendar.YEAR, currentYear - 1);    //If month is january, change year too
                 updateCurrentDay(clickedButton);                                    //Update current day display
                 updateCalendar(calendar);                                           //Update calendar
             }
@@ -229,7 +218,6 @@ public class Controller {
             else {
                 Calendar calendar = Calendar.getInstance();                         //Get a calendar instance
                 calendar.set(Calendar.MONTH, thisMonth + 1);                        //Set month to next month of current month
-                if(thisMonth == 11) calendar.set(Calendar.YEAR, currentYear + 1);   //If month is december, change year too
                 updateCurrentDay(clickedButton);                                    //Update current day display
                 updateCalendar(calendar);                                           //Update calendar
             }
@@ -251,9 +239,16 @@ public class Controller {
 
     public void updateCalendar(Calendar calendar) {
         thisMonth = calendar.get(Calendar.MONTH);
+        currentYear = calendar.get(Calendar.YEAR);
+        //System.out.println("Month: "+thisMonth+" Year: "+ currentYear);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
+        //Stores value of previous month
         int previousMonth;
-        int lastMonthDays;
+
+
+        int lastMonthCount;
+        int thisMonthCount = 1;
+        int nextMonthCount = 1;
 
         int startOfMonth = calendar.get(Calendar.DAY_OF_WEEK) - 1;
 
@@ -264,31 +259,44 @@ public class Controller {
         else {
             previousMonth = thisMonth - 1;
         }
-        lastMonthDays = daysInMonth[previousMonth] - (startOfMonth - 1);
 
-        int thisMonthDays = 1;
-        int nextMonthDays = 1;
+        //Stores values of number of days in month
+        //needed for leap years
+        int previousMonthDays = checkIfLeapYear(previousMonth);
+        int thisMonthDays = checkIfLeapYear(thisMonth);
+
+        lastMonthCount = previousMonthDays - (startOfMonth - 1);
+
         for (Node node : gridPane.getChildren()) {
             AnchorPane a = (AnchorPane) node;
             for (Node innerNode : a.getChildren()) {
                 Button current = (Button) innerNode;
-                if(lastMonthDays <= daysInMonth[previousMonth]) {
-                    current.setText(String.valueOf(lastMonthDays));
+                if(lastMonthCount <= previousMonthDays) {
+                    current.setText(String.valueOf(lastMonthCount));
                     current.setTextFill(Paint.valueOf("#ccc"));
-                    lastMonthDays++;
+                    lastMonthCount++;
                 }
-                else if(thisMonthDays <= daysInMonth[thisMonth]) {
-                    current.setText(String.valueOf(thisMonthDays));
+                else if(thisMonthCount <= thisMonthDays) {
+                    current.setText(String.valueOf(thisMonthCount));
                     current.setTextFill(Paint.valueOf("#959595"));
-                    thisMonthDays++;
+                    thisMonthCount++;
                 }
                 else {
-                    current.setText(String.valueOf(nextMonthDays));
+                    current.setText(String.valueOf(nextMonthCount));
                     current.setTextFill(Paint.valueOf("#ccc"));
-                    nextMonthDays++;
+                    nextMonthCount++;
                 }
             }
         }
+    }
+
+    public int checkIfLeapYear(int month) {
+        if(month == 1) {
+            if(((currentYear % 4 == 0) && (currentYear % 100!= 0)) || (currentYear%400 == 0)) {
+                return daysInMonth[month] + 1;
+            }
+        }
+        return daysInMonth[month];
     }
 
     /**
@@ -395,6 +403,7 @@ public class Controller {
         }
         catch (IOException | org.json.simple.parser.ParseException e) {
             e.printStackTrace();
+            //System.out.println("Error");
         }
     }
 }

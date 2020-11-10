@@ -128,10 +128,10 @@ public class Controller {
         currentMonth.setTextFill(Paint.valueOf(("#171717")));
         currentMonth.setStyle("-fx-background-color: transparent; -fx-font-weight: Bold");
 
-        monthsOfYear.put("Jan", 1); monthsOfYear.put("Feb", 2); monthsOfYear.put("Mar", 3);
-        monthsOfYear.put("Apr", 4); monthsOfYear.put("May", 5); monthsOfYear.put("Jun", 6);
-        monthsOfYear.put("Jul", 7); monthsOfYear.put("Aug", 8); monthsOfYear.put("Sep", 9);
-        monthsOfYear.put("Oct", 10); monthsOfYear.put("Nov", 11); monthsOfYear.put("Dec", 12);
+        monthsOfYear.put("Jan", 0); monthsOfYear.put("Feb", 1); monthsOfYear.put("Mar", 2);
+        monthsOfYear.put("Apr", 3); monthsOfYear.put("May", 4); monthsOfYear.put("Jun", 5);
+        monthsOfYear.put("Jul", 6); monthsOfYear.put("Aug", 7); monthsOfYear.put("Sep", 8);
+        monthsOfYear.put("Oct", 9); monthsOfYear.put("Nov", 10); monthsOfYear.put("Dec", 11);
 
         updateTaskList(todayNumber);
         SUNLabel.setStyle("-fx-font-weight: bold;");
@@ -185,13 +185,9 @@ public class Controller {
     public void clickedMonths(ActionEvent event) {
         Button monthButton = (Button) event.getSource();
         if (monthButton != currentMonth) {
-            currentMonth.setTextFill(Paint.valueOf("#868686"));
-            currentMonth.setStyle("-fx-font-weight: Normal; -fx-background-color: transparent");
-            currentMonth = monthButton;
-            currentMonth.setTextFill(Paint.valueOf(("#171717")));
-            currentMonth.setStyle("-fx-background-color: transparent; -fx-font-weight: Bold");
+            updateMonth(monthButton, currentMonth);
             Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.MONTH, monthsOfYear.get(currentMonth.getText()) - 1);
+            cal.set(Calendar.MONTH, monthsOfYear.get(currentMonth.getText()));
             cal.set(Calendar.YEAR, currentYear);
             updateCalendar(cal);
         }
@@ -199,6 +195,7 @@ public class Controller {
 
 
     public void pressButton(ActionEvent event) {
+        Button newMonth;
         //Get button
         Button clickedButton = (Button) event.getSource();
         //If button is in this month
@@ -212,6 +209,12 @@ public class Controller {
                 Calendar calendar = Calendar.getInstance();                         //Get a calendar instance
                 calendar.set(Calendar.MONTH, thisMonth - 1);                        //Set month to previous month of current month
                 updateCurrentDay(clickedButton);                                    //Update current day display
+                if(monthsOfYear.get(currentMonth.getText()) == 0) {
+                    newMonth = monthButtons[11];
+                    updateYearDisplay(-1);
+                }
+                else newMonth = monthButtons[(monthsOfYear.get(currentMonth.getText()) - 1)];
+                updateMonth(newMonth, currentMonth);
                 updateCalendar(calendar);                                           //Update calendar
             }
             //If day clicked is in next month
@@ -219,10 +222,28 @@ public class Controller {
                 Calendar calendar = Calendar.getInstance();                         //Get a calendar instance
                 calendar.set(Calendar.MONTH, thisMonth + 1);                        //Set month to next month of current month
                 updateCurrentDay(clickedButton);                                    //Update current day display
+                if(monthsOfYear.get(currentMonth.getText()) == 11) {
+                    newMonth = monthButtons[0];
+                    updateYearDisplay(1);
+                }
+                else newMonth = monthButtons[(monthsOfYear.get(currentMonth.getText()) + 1)];
+                updateMonth(newMonth, currentMonth);
                 updateCalendar(calendar);                                           //Update calendar
             }
         }
     }
+
+//    public void shiftCalendar(Button clickedButton, int shiftDirection) {
+//        Calendar calendar = Calendar.getInstance();                         //Get a calendar instance
+//        calendar.set(Calendar.MONTH, thisMonth - 1);                        //Set month to previous month of current month
+//        updateCurrentDay(clickedButton);                                    //Update current day display
+//        System.out.println("Month: "+currentMonth.getText()+"\nNum: "+monthsOfYear.get(currentMonth.getText()));
+//        if(shiftDirection == -1 && thisMonth)
+//        Button newMonth = monthButtons[(monthsOfYear.get(currentMonth.getText()) - 1)];
+//        System.out.println(newMonth.getText());
+//        updateMonth(newMonth, currentMonth);
+//        updateCalendar(calendar);                                           //Update calendar
+//    }
 
     public void updateCurrentDay(Button clickedButton) {
         try {
@@ -236,8 +257,22 @@ public class Controller {
         }
     }
 
+    public void updateMonth(Button clicked, Button old) {
+        old.setTextFill(Paint.valueOf("#868686"));
+        old.setStyle("-fx-font-weight: Normal; -fx-background-color: transparent");
+        clicked.setTextFill(Paint.valueOf(("#171717")));
+        clicked.setStyle("-fx-background-color: transparent; -fx-font-weight: Bold");
+        currentMonth = clicked;
+    }
+
+    public void updateYearDisplay(int shiftDirection) {
+        currentYear = Integer.parseInt(yearLabel.getText());
+        currentYear += shiftDirection;
+        yearLabel.setText(String.valueOf(currentYear));
+    }
 
     public void updateCalendar(Calendar calendar) {
+        System.out.println(calendar.getTime());
         thisMonth = calendar.get(Calendar.MONTH);
         currentYear = calendar.get(Calendar.YEAR);
         //System.out.println("Month: "+thisMonth+" Year: "+ currentYear);

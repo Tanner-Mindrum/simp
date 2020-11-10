@@ -305,63 +305,67 @@ public class Controller {
      * @param event - the button clicked
      */
     public void addEvent(ActionEvent event) {
-        JSONParser parser = new JSONParser();
-        try (Reader reader = new FileReader("src\\sample\\db.json")) {
-            // Get JSONArray of days with tasks
-            JSONArray jsonArray = (JSONArray) parser.parse(reader);
+        if (taskField.getText().length() > 0) {
+            JSONParser parser = new JSONParser();
+            try (Reader reader = new FileReader("src\\sample\\db.json")) {
+                // Get JSONArray of days with tasks
+                JSONArray jsonArray = (JSONArray) parser.parse(reader);
 
             /* Search JSON database. If a day with tasks already exists, add the users inputted task to it.
              If it does not exist, create a new JSON object and add it to the database */
-            boolean objFound = false;
-            for (Object obj : jsonArray) {
-                JSONObject jsonObj = (JSONObject) obj;
-                // Exists in database if its month/day match the user's selected month/day
-                if (jsonObj.get("month").equals(currentMonth.getText()) &&
-                        jsonObj.get("day").equals(dayNumberLabelId.getText())) {
-                    objFound = true;
-                    // Get that days pre-existing list of tasks and add user's inputted task
-                    JSONArray taskArray = (JSONArray) jsonObj.get("tasks");
-                    taskArray.add(taskField.getText());
-                    // Write to JSON file to update database
+                boolean objFound = false;
+                for (Object obj : jsonArray) {
+                    JSONObject jsonObj = (JSONObject) obj;
+                    // Exists in database if its month/day match the user's selected month/day
+                    if (jsonObj.get("year").equals(currentYear) &&
+                            jsonObj.get("month").equals(currentMonth.getText()) &&
+                            jsonObj.get("day").equals(dayNumberLabelId.getText())) {
+                        objFound = true;
+                        // Get that days pre-existing list of tasks and add user's inputted task
+                        JSONArray taskArray = (JSONArray) jsonObj.get("tasks");
+                        taskArray.add(taskField.getText());
+                        // Write to JSON file to update database
+                        try (FileWriter file = new FileWriter("src\\sample\\db.json")) {
+                            file.write(jsonArray.toJSONString());
+                            file.flush();
+                        }
+                        // Update app's left hand column with new task list that includes user's input
+                        StringBuilder listOfTasks = new StringBuilder();
+                        for (Object task : taskArray) {
+                            listOfTasks.append("\n-    ").append((String) task);
+                        }
+                        taskTextArea.setText("Current Tasks:" + listOfTasks);
+                    }
+                }
+
+                // If the user's selected month/day does not exist, create a new entry in database
+                if (!objFound) {
+                    // Create month/day attributes
+                    JSONObject newTaskObj = new JSONObject();
+                    newTaskObj.put("year", currentYear);
+                    newTaskObj.put("month", currentMonth.getText());
+                    newTaskObj.put("day", dayNumberLabelId.getText());
+                    // Initialize an array of tasks with the user's task input
+                    JSONArray tasks = new JSONArray();
+                    tasks.add(taskField.getText());
+                    newTaskObj.put("tasks", tasks);
+                    // Add this newly created JSON object to database and write to file
+                    jsonArray.add(newTaskObj);
                     try (FileWriter file = new FileWriter("src\\sample\\db.json")) {
                         file.write(jsonArray.toJSONString());
                         file.flush();
                     }
                     // Update app's left hand column with new task list that includes user's input
                     StringBuilder listOfTasks = new StringBuilder();
-                    for (Object task : taskArray) {
+                    for (Object task : tasks) {
                         listOfTasks.append("\n-    ").append((String) task);
                     }
                     taskTextArea.setText("Current Tasks:" + listOfTasks);
                 }
             }
-
-            // If the user's selected month/day does not exist, create a new entry in database
-            if (!objFound) {
-                // Create month/day attributes
-                JSONObject newTaskObj = new JSONObject();
-                newTaskObj.put("month", currentMonth.getText());
-                newTaskObj.put("day", dayNumberLabelId.getText());
-                // Initialize an array of tasks with the user's task input
-                JSONArray tasks = new JSONArray();
-                tasks.add(taskField.getText());
-                newTaskObj.put("tasks", tasks);
-                // Add this newly created JSON object to database and write to file
-                jsonArray.add(newTaskObj);
-                try (FileWriter file = new FileWriter("src\\sample\\db.json")) {
-                    file.write(jsonArray.toJSONString());
-                    file.flush();
-                }
-                // Update app's left hand column with new task list that includes user's input
-                StringBuilder listOfTasks = new StringBuilder();
-                for (Object task : tasks) {
-                    listOfTasks.append("\n-    ").append((String) task);
-                }
-                taskTextArea.setText("Current Tasks:" + listOfTasks);
+            catch (IOException | ParseException e) {
+                e.printStackTrace();
             }
-        }
-        catch (IOException | ParseException e) {
-            e.printStackTrace();
         }
     }
 
@@ -383,7 +387,8 @@ public class Controller {
             for (Object obj : jsonArray) {
                 JSONObject jsonObj = (JSONObject) obj;
                 // Exists in database if its month/day match the user's selected month/day
-                if (jsonObj.get("day").equals(currentDay) && jsonObj.get("month").equals(currentMonth.getText())) {
+                if (jsonObj.get("month").equals(currentMonth.getText()) && ((long) jsonObj.get("year") == currentYear)
+                        && jsonObj.get("day").equals(currentDay)) {
                     dayClickedFound = true;
                     // Get that object's list of tasks
                     JSONArray taskArray = (JSONArray) jsonObj.get("tasks");

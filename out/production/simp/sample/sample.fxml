@@ -4,16 +4,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<<<<<<< HEAD
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="863.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+=======
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="863.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.271" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
     <children>
         <Pane prefHeight="476.0" prefWidth="321.0" style="-fx-background-color: rgba(53,89,119,0.8)" styleClass="taskSection">
             <children>
-                <Label id="dayNumberLabel" fx:id="dayNumberLabelId" alignment="CENTER" contentDisplay="CENTER" layoutX="109.0" layoutY="49.0" text="19" textAlignment="CENTER" textFill="WHITE">
+                <Label id="dayNumberLabel" fx:id="dayNumberLabelId" alignment="CENTER" contentDisplay="CENTER" minWidth="100" layoutX="109.0" layoutY="49.0" text="0" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="90.0" />
                     </font>
                 </Label>
-                <Label fx:id="dayLabel" alignment="CENTER" layoutX="95.0" layoutY="167.0" text="MONDAY" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="dayLabel" alignment="CENTER" minWidth="100" layoutX="109.0" layoutY="167.0" text="MONDAY" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -29,7 +33,7 @@
                </font></TextArea>
             </children>
         </Pane>
-        <GridPane layoutX="325.0" layoutY="150.0" prefHeight="287.0" prefWidth="515.0">
+        <GridPane fx:id="gridPane" layoutX="325.0" layoutY="150.0" prefHeight="287.0" prefWidth="515.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -50,7 +54,11 @@
             <children>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="27" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="0">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="27" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="0" GridPane.columnIndex="0">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font></Button>
@@ -58,7 +66,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="28" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="1">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="28" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="0" GridPane.columnIndex="1">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -67,7 +79,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="96.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="29" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="2">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="29" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="0" GridPane.columnIndex="2">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -76,7 +92,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="182.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="30" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="3">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="30" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="0" GridPane.columnIndex="3">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -85,7 +105,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="268.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="1" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="4">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="1" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="0" GridPane.columnIndex="4">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -94,7 +118,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="354.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="2" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="5">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="2" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="0" GridPane.columnIndex="5">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -103,7 +131,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="441.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="3" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="6">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="3" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="0" GridPane.columnIndex="6">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -301,7 +333,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="528.0" layoutY="285.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="25" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="0">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="25" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="4" GridPane.columnIndex="0">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -310,7 +346,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="10.0" layoutY="175.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="26" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="1">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="26" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="4" GridPane.columnIndex="1">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -319,7 +359,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="96.0" layoutY="175.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="27" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="2">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="27" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="4" GridPane.columnIndex="2">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -328,7 +372,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="182.0" layoutY="175.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="28" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="3">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="28" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="4" GridPane.columnIndex="3">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -337,7 +385,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="268.0" layoutY="175.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="29" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="4">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="29" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="4" GridPane.columnIndex="4">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -346,7 +398,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="354.0" layoutY="175.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="30" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="5">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="30" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="4" GridPane.columnIndex="5">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -355,7 +411,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="441.0" layoutY="175.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="31" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="6">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="31" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="4" GridPane.columnIndex="6">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -364,7 +424,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="528.0" layoutY="175.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="1" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="0">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="1" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="5" GridPane.columnIndex="0">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -373,7 +437,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="10.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="2" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="1">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="2" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="5" GridPane.columnIndex="1">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -382,7 +450,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="96.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="3" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="2">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="3" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="5" GridPane.columnIndex="2">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -391,7 +463,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="182.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="4" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="3">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="4" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="5" GridPane.columnIndex="3">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -400,7 +476,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="268.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="5" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="4">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="5" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="5" GridPane.columnIndex="4">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -409,7 +489,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="354.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="6" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="5">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="6" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="5" GridPane.columnIndex="5">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -418,7 +502,11 @@
                 </AnchorPane>
                 <AnchorPane layoutX="441.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
                     <children>
+<<<<<<< HEAD
                         <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="7" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="6">
+=======
+                        <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="7" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="5" GridPane.columnIndex="6">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -463,52 +551,56 @@
                 <Font size="16.0" />
             </font>
         </Label>
-        <Button layoutX="350.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent;" text="Jan" textFill="#868686">
+        <Button fx:id="janButton" layoutX="350.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Jan" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="388.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent;" text="Feb" textFill="#868686">
+        <Button fx:id="febButton" layoutX="388.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Feb" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="428.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent;" text="Mar" textFill="#868686">
+        <Button fx:id="marButton" layoutX="428.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Mar" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="470.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent;" text="Apr" textFill="#868686">
+        <Button fx:id="aprButton" layoutX="470.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Apr" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="510.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent;" text="May" textFill="#868686">
+        <Button fx:id="mayButton" layoutX="510.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="May" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="552.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent;" text="Jun" textFill="#868686">
+        <Button fx:id="junButton" layoutX="552.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Jun" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="590.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent;" text="Jul" textFill="#868686">
+        <Button fx:id="julButton" layoutX="590.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Jul" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="626.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent;" text="Aug" textFill="#868686">
+        <Button fx:id="augButton" layoutX="626.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Aug" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="668.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent;" text="Sep" textFill="#868686">
+        <Button fx:id="sepButton" layoutX="668.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Sep" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
+<<<<<<< HEAD
         <Button fx:id="OctButton" layoutX="708.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: bold;" text="Oct" textFill="#171717">
+=======
+        <Button fx:id="octButton" layoutX="708.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Oct" textFill="#868686">
+>>>>>>> 1944bf7c4a8786db0907802abb5dcfbd33fa4e17
 <!--        <Button fx:id="OctButton" layoutX="708.0" layoutY="70.0" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="Oct" textFill="#171717">-->
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="748.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent;" text="Nov" textFill="#868686">
+        <Button fx:id="novButton" layoutX="748.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Nov" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button layoutX="791.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent;" text="Dec" textFill="#868686">
+        <Button fx:id="decButton" layoutX="791.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Dec" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>

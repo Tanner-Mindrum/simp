@@ -209,10 +209,10 @@ public class Controller {
             currentYear -= 1;
             yearLabel.setText(String.valueOf(currentYear));
         }
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.MONTH, thisMonth);
-        cal.set(Calendar.YEAR, currentYear);
-        updateCalendar(cal);
+        Calendar cal = Calendar.getInstance();                      //Get calendar instance
+        cal.set(Calendar.MONTH, thisMonth);                         //Set calendar to current month
+        cal.set(Calendar.YEAR, currentYear);                        //Set calendar to current year
+        updateCalendar(cal);                                        //Update viewable calendar
     }
 
 
@@ -234,35 +234,39 @@ public class Controller {
 
 
     public void pressButton(ActionEvent event) {
+        //Get button
         Button clickedButton = (Button) event.getSource();
+        //If button is in this month
         if(clickedButton.getTextFill().equals(Paint.valueOf("#959595"))) {
+            //Set new date and weekday
             updateCurrentDay(clickedButton);
         }
         else {
+            //If day clicked is in previous month
             if(GridPane.getRowIndex(clickedButton) == 0) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.MONTH, thisMonth - 1);
-                updateCurrentDay(clickedButton);
-                updateCalendar(calendar);
+                Calendar calendar = Calendar.getInstance();     //Get a calendar instance
+                calendar.set(Calendar.MONTH, thisMonth - 1);    //Set month to previous month of current month
+                updateCurrentDay(clickedButton);                //Update current day display
+                updateCalendar(calendar);                       //Update calendar
             }
+            //If day clicked is in next month
             else {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.MONTH, thisMonth + 1);
-                updateCurrentDay(clickedButton);
-                updateCalendar(calendar);
+                Calendar calendar = Calendar.getInstance();     //Get a calendar instance
+                calendar.set(Calendar.MONTH, thisMonth + 1);    //Set month to next month of current month
+                updateCurrentDay(clickedButton);                //Update current day display
+                updateCalendar(calendar);                       //Update calendar
             }
         }
     }
 
     public void updateCurrentDay(Button clickedButton) {
         try {
-            String clickedButtonDay = (clickedButton.getText());
-            dayNumberLabelId.setText(clickedButtonDay);
+            String clickedButtonDay = (clickedButton.getText());                        //Get current button number as string
+            dayNumberLabelId.setText(clickedButtonDay);                                 //Set current day label with number
 
-            String todayFullName = daysOfWeek[GridPane.getColumnIndex(clickedButton)];
-
-            dayLabel.setText(todayFullName.toUpperCase());
-            updateTaskList(clickedButtonDay);
+            String todayFullName = daysOfWeek[GridPane.getColumnIndex(clickedButton)];  //Get weekday name
+            dayLabel.setText(todayFullName.toUpperCase());                              //Set it to full uppercase
+            updateTaskList(clickedButtonDay);                                           //Update current day task list
         } catch (NumberFormatException ignored) {
         }
     }

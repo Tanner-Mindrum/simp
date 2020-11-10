@@ -228,6 +228,7 @@ public class Controller {
             currentMonth.setStyle("-fx-background-color: transparent; -fx-font-weight: Bold");
             Calendar cal = Calendar.getInstance();
             cal.set(Calendar.MONTH, monthsOfYear.get(currentMonth.getText()) - 1);
+            cal.set(Calendar.YEAR, currentYear);
             updateCalendar(cal);
         }
     }
@@ -244,17 +245,19 @@ public class Controller {
         else {
             //If day clicked is in previous month
             if(GridPane.getRowIndex(clickedButton) == 0) {
-                Calendar calendar = Calendar.getInstance();     //Get a calendar instance
-                calendar.set(Calendar.MONTH, thisMonth - 1);    //Set month to previous month of current month
-                updateCurrentDay(clickedButton);                //Update current day display
-                updateCalendar(calendar);                       //Update calendar
+                Calendar calendar = Calendar.getInstance();                         //Get a calendar instance
+                calendar.set(Calendar.MONTH, thisMonth - 1);                        //Set month to previous month of current month
+                if(thisMonth == 0) calendar.set(Calendar.YEAR, currentYear - 1);    //If month is january, change year too
+                updateCurrentDay(clickedButton);                                    //Update current day display
+                updateCalendar(calendar);                                           //Update calendar
             }
             //If day clicked is in next month
             else {
-                Calendar calendar = Calendar.getInstance();     //Get a calendar instance
-                calendar.set(Calendar.MONTH, thisMonth + 1);    //Set month to next month of current month
-                updateCurrentDay(clickedButton);                //Update current day display
-                updateCalendar(calendar);                       //Update calendar
+                Calendar calendar = Calendar.getInstance();                         //Get a calendar instance
+                calendar.set(Calendar.MONTH, thisMonth + 1);                        //Set month to next month of current month
+                if(thisMonth == 11) calendar.set(Calendar.YEAR, currentYear + 1);   //If month is december, change year too
+                updateCurrentDay(clickedButton);                                    //Update current day display
+                updateCalendar(calendar);                                           //Update calendar
             }
         }
     }

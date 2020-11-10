@@ -309,7 +309,8 @@ public class Controller {
                 for (Object obj : jsonArray) {
                     JSONObject jsonObj = (JSONObject) obj;
                     // Exists in database if its month/day match the user's selected month/day
-                    if (jsonObj.get("month").equals(currentMonth.getText()) &&
+                    if (jsonObj.get("year").equals(currentYear) &&
+                            jsonObj.get("month").equals(currentMonth.getText()) &&
                             jsonObj.get("day").equals(dayNumberLabelId.getText())) {
                         objFound = true;
                         // Get that days pre-existing list of tasks and add user's inputted task
@@ -333,6 +334,7 @@ public class Controller {
                 if (!objFound) {
                     // Create month/day attributes
                     JSONObject newTaskObj = new JSONObject();
+                    newTaskObj.put("year", currentYear);
                     newTaskObj.put("month", currentMonth.getText());
                     newTaskObj.put("day", dayNumberLabelId.getText());
                     // Initialize an array of tasks with the user's task input
@@ -352,7 +354,8 @@ public class Controller {
                     }
                     taskTextArea.setText("Current Tasks:" + listOfTasks);
                 }
-            } catch (IOException | ParseException e) {
+            }
+            catch (IOException | ParseException e) {
                 e.printStackTrace();
             }
         }
@@ -376,7 +379,8 @@ public class Controller {
             for (Object obj : jsonArray) {
                 JSONObject jsonObj = (JSONObject) obj;
                 // Exists in database if its month/day match the user's selected month/day
-                if (jsonObj.get("day").equals(currentDay) && jsonObj.get("month").equals(currentMonth.getText())) {
+                if (jsonObj.get("month").equals(currentMonth.getText()) && ((long) jsonObj.get("year") == currentYear)
+                        && jsonObj.get("day").equals(currentDay)) {
                     dayClickedFound = true;
                     // Get that object's list of tasks
                     JSONArray taskArray = (JSONArray) jsonObj.get("tasks");

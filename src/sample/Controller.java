@@ -166,21 +166,16 @@ public class Controller {
         String yearDirection = yearButton.getText();
         if (yearDirection.equals("yearUp")){
             // Increment year up one
-            currentYear = Integer.parseInt(yearLabel.getText());
-            currentYear += 1;
-            yearLabel.setText(String.valueOf(currentYear));
+            updateYearDisplay(1);
         } else {
             // Increment year down one
-            currentYear = Integer.parseInt(yearLabel.getText());
-            currentYear -= 1;
-            yearLabel.setText(String.valueOf(currentYear));
+            updateYearDisplay(-1);
         }
         Calendar cal = Calendar.getInstance();                      //Get calendar instance
         cal.set(Calendar.MONTH, thisMonth);                         //Set calendar to current month
         cal.set(Calendar.YEAR, currentYear);                        //Set calendar to current year
         updateCalendar(cal);                                        //Update viewable calendar
     }
-
 
     public void clickedMonths(ActionEvent event) {
         Button monthButton = (Button) event.getSource();
@@ -193,9 +188,7 @@ public class Controller {
         }
     }
 
-
     public void pressButton(ActionEvent event) {
-        Button newMonth;
         //Get button
         Button clickedButton = (Button) event.getSource();
         //If button is in this month
@@ -206,44 +199,16 @@ public class Controller {
         else {
             //If day clicked is in previous month
             if(GridPane.getRowIndex(clickedButton) == 0) {
-                Calendar calendar = Calendar.getInstance();                         //Get a calendar instance
-                calendar.set(Calendar.MONTH, thisMonth - 1);                        //Set month to previous month of current month
-                updateCurrentDay(clickedButton);                                    //Update current day display
-                if(monthsOfYear.get(currentMonth.getText()) == 0) {
-                    newMonth = monthButtons[11];
-                    updateYearDisplay(-1);
-                }
-                else newMonth = monthButtons[(monthsOfYear.get(currentMonth.getText()) - 1)];
-                updateMonth(newMonth, currentMonth);
-                updateCalendar(calendar);                                           //Update calendar
+                updateCurrentDay(clickedButton);                                   //Update current day display
+                shiftCalendar(-1);                                      //shift and update calendar
             }
             //If day clicked is in next month
             else {
-                Calendar calendar = Calendar.getInstance();                         //Get a calendar instance
-                calendar.set(Calendar.MONTH, thisMonth + 1);                        //Set month to next month of current month
-                updateCurrentDay(clickedButton);                                    //Update current day display
-                if(monthsOfYear.get(currentMonth.getText()) == 11) {
-                    newMonth = monthButtons[0];
-                    updateYearDisplay(1);
-                }
-                else newMonth = monthButtons[(monthsOfYear.get(currentMonth.getText()) + 1)];
-                updateMonth(newMonth, currentMonth);
-                updateCalendar(calendar);                                           //Update calendar
+                updateCurrentDay(clickedButton);                                   //Update current day display
+                    shiftCalendar(1);                                   //shift calendar and calendar
             }
         }
     }
-
-//    public void shiftCalendar(Button clickedButton, int shiftDirection) {
-//        Calendar calendar = Calendar.getInstance();                         //Get a calendar instance
-//        calendar.set(Calendar.MONTH, thisMonth - 1);                        //Set month to previous month of current month
-//        updateCurrentDay(clickedButton);                                    //Update current day display
-//        System.out.println("Month: "+currentMonth.getText()+"\nNum: "+monthsOfYear.get(currentMonth.getText()));
-//        if(shiftDirection == -1 && thisMonth)
-//        Button newMonth = monthButtons[(monthsOfYear.get(currentMonth.getText()) - 1)];
-//        System.out.println(newMonth.getText());
-//        updateMonth(newMonth, currentMonth);
-//        updateCalendar(calendar);                                           //Update calendar
-//    }
 
     public void updateCurrentDay(Button clickedButton) {
         try {
@@ -257,12 +222,29 @@ public class Controller {
         }
     }
 
+    public void shiftCalendar(int shiftDirection) {
+        Button newMonth;
+        Calendar calendar = Calendar.getInstance();                                                 //Get a calendar instance
+        calendar.set(Calendar.MONTH, thisMonth + shiftDirection);                                   //Set month to previous month of current month
+        if(monthsOfYear.get(currentMonth.getText()) == 0 && shiftDirection == -1) {                 //If month is january and shifting to previous month
+            newMonth = monthButtons[11];                                                            //December
+            updateYearDisplay(shiftDirection);                                                      //Update Year
+        }
+        else if(monthsOfYear.get(currentMonth.getText()) == 11 && shiftDirection == 1) {            //If month is december and shifting to next month
+            newMonth = monthButtons[0];                                                             //January
+            updateYearDisplay(shiftDirection);                                                      //Update Year
+        }
+        else newMonth = monthButtons[(monthsOfYear.get(currentMonth.getText()) + shiftDirection)];  //Shift calendar forward or backward
+        updateMonth(newMonth, currentMonth);
+        updateCalendar(calendar);                                                                   //Update calendar
+    }
+
     public void updateMonth(Button clicked, Button old) {
-        old.setTextFill(Paint.valueOf("#868686"));
-        old.setStyle("-fx-font-weight: Normal; -fx-background-color: transparent");
-        clicked.setTextFill(Paint.valueOf(("#171717")));
-        clicked.setStyle("-fx-background-color: transparent; -fx-font-weight: Bold");
-        currentMonth = clicked;
+        old.setTextFill(Paint.valueOf("#868686"));                                      //Set old to grey
+        old.setStyle("-fx-font-weight: Normal; -fx-background-color: transparent");     //Make non-bold
+        clicked.setTextFill(Paint.valueOf(("#171717")));                                //Set new to dark grey
+        clicked.setStyle("-fx-background-color: transparent; -fx-font-weight: Bold");   //Make bold
+        currentMonth = clicked;                                                         //Point to new month
     }
 
     public void updateYearDisplay(int shiftDirection) {

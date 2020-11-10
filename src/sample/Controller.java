@@ -18,6 +18,7 @@ import org.json.simple.parser.JSONParser;
 
 import org.json.simple.parser.ParseException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.time.YearMonth;
@@ -68,19 +69,14 @@ public class Controller {
 
     public int currentYear;
 
-
     private String[] daysOfWeek = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday"};
 
-
     private HashMap<String, Integer> monthsOfYear = new HashMap<String, Integer>();
-
 
     private int addTaskButtonClickCount;
 
-
     private int selectedMonth;
-
 
     @FXML
     private void initialize() {
@@ -99,23 +95,8 @@ public class Controller {
         monthsOfYear.put("Jul", 7); monthsOfYear.put("Aug", 8); monthsOfYear.put("Sep", 9);
         monthsOfYear.put("Oct", 10); monthsOfYear.put("Nov", 11); monthsOfYear.put("Dec", 12);
 
-
         // TODO: Change which month it currently is, replace which days are in there
         currentMonth = OctButton;
-
-
-        // Gets current month, january starts at 0
-//        int currentMonth = calendar.get(Calendar.MONTH);
-//        selectedMonth = currentMonth;
-//        System.out.println("Current Month: " + currentMonth);
-//        int currentYear = calendar.get(Calendar.YEAR);
-//        selectedYear = currentYear;
-//        System.out.println("Current Year: " + currentYear);
-//        // Getting first of the month
-//        YearMonth yearMonthObject = YearMonth.of(currentYear, currentMonth + 1);
-//        int daysInMonth = yearMonthObject.lengthOfMonth();
-//        System.out.println(daysInMonth);
-//        System.out.println("First day of the month is: " + yearMonthObject.atDay(1).getDayOfWeek());
 
         updateTaskList(todayNumber);
         this.currentMonth = OctButton;
@@ -145,14 +126,6 @@ public class Controller {
         addTaskButtonClickCount = 0;
     }
 
-//    public void updateCalendarMonth(int selectedMonth){
-//        YearMonth selectedYearMonth = YearMonth.of(selectedYear, selectedMonth);
-//        int daysInMonth = selectedYearMonth.lengthOfMonth();
-//        System.out.println(daysInMonth);
-//        System.out.println("First day of the month is: " + selectedYearMonth.atDay(1).getDayOfWeek());
-//        // Change button labels to update calendar
-//    }
-
     // Updates year when
     public void updateYear(ActionEvent event){
         yearButton = (Button) event.getSource();
@@ -173,8 +146,6 @@ public class Controller {
 
     public void clickedMonths(ActionEvent event) {
         monthButton = (Button) event.getSource();
-        String clickedButtonMonth = monthButton.getText();
-        String monthButtonText = monthButton.getText();
         if (monthButton != currentMonth) {
             currentMonth.setTextFill(Paint.valueOf("#868686"));
             currentMonth.setStyle("-fx-font-weight: Normal; -fx-background-color: transparent");
@@ -198,25 +169,65 @@ public class Controller {
         catch (NumberFormatException ignored) {}
     }
 
+    /**
+     * Adds a task to the current month/day selected by user. Updates a pre-existing object with a task if one
+     * exists already, otherwise creates a new entry in the database with the user's inputted task
+     * @param event - the button clicked
+     */
     public void addEvent(ActionEvent event) {
         JSONParser parser = new JSONParser();
         try (Reader reader = new FileReader("src\\sample\\db.json")) {
             // Get JSONArray of days with tasks
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
 
-            boolean dayFound = false;
+            /* Search JSON database. If a day with tasks already exists, add the users inputted task to it.
+             If it does not exist, create a new JSON object and add it to the database */
+            boolean objFound = false;
             for (Object obj : jsonArray) {
                 JSONObject jsonObj = (JSONObject) obj;
-                //
-                if (jsonObj.get("day").equals(dayNumberLabelId)) {
-                    dayFound = true;
+                // Exists in database if its month/day match the user's selected month/day
+                if (jsonObj.get("month").equals(currentMonth.getText()) &&
+                        jsonObj.get("day").equals(dayNumberLabelId.getText())) {
+                    objFound = true;
+                    // Get that days pre-existing list of tasks and add user's inputted task
                     JSONArray taskArray = (JSONArray) jsonObj.get("tasks");
                     taskArray.add(taskField.getText());
+                    // Write to JSON file to update database
+                    try (FileWriter file = new FileWriter("src\\sample\\db.json")) {
+                        file.write(jsonArray.toJSONString());
+                        file.flush();
+                    }
+                    // Update app's left hand column with new task list that includes user's input
+                    StringBuilder listOfTasks = new StringBuilder();
+                    for (Object task : taskArray) {
+                        listOfTasks.append("\n-    ").append((String) task);
+                    }
+                    taskTextArea.setText("Current Tasks:" + listOfTasks);
                 }
             }
 
-            if (!dayFound) {
-
+            // If the user's selected month/day does not exist, create a new entry in database
+            if (!objFound) {
+                // Create month/day attributes
+                JSONObject newTaskObj = new JSONObject();
+                newTaskObj.put("month", currentMonth.getText());
+                newTaskObj.put("day", dayNumberLabelId.getText());
+                // Initialize an array of tasks with the user's task input
+                JSONArray tasks = new JSONArray();
+                tasks.add(taskField.getText());
+                newTaskObj.put("tasks", tasks);
+                // Add this newly created JSON object to database and write to file
+                jsonArray.add(newTaskObj);
+                try (FileWriter file = new FileWriter("src\\sample\\db.json")) {
+                    file.write(jsonArray.toJSONString());
+                    file.flush();
+                }
+                // Update app's left hand column with new task list that includes user's input
+                StringBuilder listOfTasks = new StringBuilder();
+                for (Object task : tasks) {
+                    listOfTasks.append("\n-    ").append((String) task);
+                }
+                taskTextArea.setText("Current Tasks:" + listOfTasks);
             }
         }
         catch (IOException | ParseException e) {
@@ -232,18 +243,21 @@ public class Controller {
      */
     public void updateTaskList(String currentDay) {
         JSONParser parser = new JSONParser();
-        try (Reader reader = new FileReader("simp\\src\\sample\\db.json")) {
-//        try (Reader reader = new FileReader("src\\sample\\db.json")) {
+//        try (Reader reader = new FileReader("simp\\src\\sample\\db.json")) {
+        try (Reader reader = new FileReader("src\\sample\\db.json")) {
             // Get JSONArray of days with tasks
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
 
+            // Iterate through JSON objects (existing days with tasks) in database
             boolean dayClickedFound = false;
             for (Object obj : jsonArray) {
                 JSONObject jsonObj = (JSONObject) obj;
-                //
-                if (jsonObj.get("day").equals(currentDay)) {
+                // Exists in database if its month/day match the user's selected month/day
+                if (jsonObj.get("day").equals(currentDay) && jsonObj.get("month").equals(currentMonth.getText())) {
                     dayClickedFound = true;
+                    // Get that object's list of tasks
                     JSONArray taskArray = (JSONArray) jsonObj.get("tasks");
+                    // Update app's left hand column with that days current list of tasks
                     StringBuilder listOfTasks = new StringBuilder();
                     for (Object task : taskArray) {
                         listOfTasks.append("\n-    ").append((String) task);
@@ -252,6 +266,7 @@ public class Controller {
                     break;
                 }
             }
+            // If the user selects a day with no tasks, display default "no tasks" message
             if (!dayClickedFound) {
                 taskTextArea.setText("Current Tasks:" + "\n-    There are no tasks");
             }

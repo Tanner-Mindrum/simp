@@ -1,18 +1,1 @@
-[
-  {
-    "month": "october",
-    "day": "3",
-    "tasks": [
-      "work on project",
-      "watch borat 2"
-    ]
-  },
-  {
-    "month": "october",
-    "day": "23",
-    "tasks": [
-      "haha",
-      "XD"
-    ]
-  }
-]
+[{"month":"Oct","day":"3","tasks":["work on project","watch borat 2","new","ne2","brandnew"]},{"month":"Oct","day":"23","tasks":["haha","XD"]},{"month":"Oct","day":"10","tasks":["ayyy"]}]

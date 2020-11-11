@@ -3,14 +3,17 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 
 import javafx.scene.layout.GridPane;
+import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -26,7 +29,15 @@ import java.util.HashMap;
 public class Controller {
 
     @FXML
+    private Pane taskDisplayArea;
+    @FXML
     private GridPane gridPane;
+    @FXML
+    private Pane calendarPane;
+
+    @FXML
+    private Button createTaskButton;
+
     @FXML
     private Label dayNumberLabelId;
     @FXML
@@ -91,13 +102,11 @@ public class Controller {
     private HashMap<String, Integer> monthsOfYear = new HashMap<String, Integer>();
 
     private final int[] daysInMonth = new int[] {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
     private Button[] monthButtons = new Button[12];
 
     private int addTaskButtonClickCount;
 
-    private int selectedMonth;
-
+    //private String colorMonthDays, colorNotDays, colorWeekDays, color
     public Controller() {
 
     }
@@ -426,6 +435,64 @@ public class Controller {
         catch (IOException | org.json.simple.parser.ParseException e) {
             e.printStackTrace();
             //System.out.println("Error");
+        }
+    }
+
+    public void changeToLight() {
+        taskDisplayArea.setStyle("-fx-background-color: rgba(53,89,119,0.8)");
+        System.out.println("Change to Light");
+
+        dayNumberLabelId.setTextFill(Paint.valueOf("white"));
+        dayLabel.setTextFill(Paint.valueOf("white"));
+        taskTextArea.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-prompt-text-fill: #FFF; -fx-text-inner-color: #FFF;");
+        taskField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent transparent #FFF transparent; -fx-text-inner-color: #FFF; -fx-prompt-text-fill: #C0C0C0;");
+
+        calendarPane.setStyle("-fx-background-color: #FFF;");
+
+        for(Button month: monthButtons) {
+            month.setTextFill(Paint.valueOf("#868686"));
+        }
+
+    }
+
+    public void changeToDark() {
+        taskDisplayArea.setStyle("-fx-background-color: rgba(202,166,136,0.8)");
+        System.out.println("Change to Dark");
+
+        dayNumberLabelId.setTextFill(Paint.valueOf("#373737"));
+        dayLabel.setTextFill(Paint.valueOf("#373737"));
+        taskTextArea.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-prompt-text-fill: #373737; -fx-text-inner-color: #373737;");
+        taskField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent transparent #373737 transparent; -fx-text-inner-color: #373737; -fx-prompt-text-fill: #505050;");
+
+        calendarPane.setStyle("-fx-background-color: #373737;");
+
+        for(Button month: monthButtons) {
+            month.setTextFill(Paint.valueOf("797979"));
+        }
+
+//        for (Node node : gridPane.getChildren()) {
+//            AnchorPane a = (AnchorPane) node;
+//            for (Node innerNode : a.getChildren()) {
+//                Button current = (Button) innerNode;
+//
+//            }
+//        }
+    }
+
+    @FXML
+    public void changeMode(ActionEvent actionEvent) {
+        Button modeButton = (Button) actionEvent.getSource();
+        if(modeButton.getText().compareTo("Dark Mode") == 0) {
+            modeButton.setStyle("-fx-background-color: #f8f8f8");
+            modeButton.setTextFill(Paint.valueOf("#1d1d1d"));
+            modeButton.setText("Light Mode");
+            changeToDark();
+        }
+        else {
+            modeButton.setStyle("-fx-background-color: #1d1d1d");
+            modeButton.setTextFill(Paint.valueOf("#f8f8f8"));
+            modeButton.setText("Dark Mode");
+            changeToLight();
         }
     }
 }

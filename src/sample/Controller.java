@@ -3,22 +3,19 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
-
-import javafx.scene.layout.GridPane;
-import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import org.json.simple.parser.ParseException;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -96,17 +93,17 @@ public class Controller {
 
     public int currentYear, thisMonth;
 
-    private String[] daysOfWeek = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday",
+    private final String[] daysOfWeek = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday"};
 
-    private HashMap<String, Integer> monthsOfYear = new HashMap<String, Integer>();
+    private final HashMap<String, Integer> monthsOfYear = new HashMap<String, Integer>();
 
     private final int[] daysInMonth = new int[] {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private Button[] monthButtons = new Button[12];
 
     private int addTaskButtonClickCount;
 
-    //private String colorMonthDays, colorNotDays, colorWeekDays, color
+    private String colorOfDays, colorOfNotDays, colorWeekDays, colorOfMonths, colorSelectedMonth;
     public Controller() {
 
     }
@@ -446,6 +443,7 @@ public class Controller {
         dayLabel.setTextFill(Paint.valueOf("white"));
         taskTextArea.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-prompt-text-fill: #FFF; -fx-text-inner-color: #FFF;");
         taskField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent transparent #FFF transparent; -fx-text-inner-color: #FFF; -fx-prompt-text-fill: #C0C0C0;");
+        createTaskButton.setStyle("-fx-background-color: #FFF");
 
         calendarPane.setStyle("-fx-background-color: #FFF;");
 
@@ -463,6 +461,7 @@ public class Controller {
         dayLabel.setTextFill(Paint.valueOf("#373737"));
         taskTextArea.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-prompt-text-fill: #373737; -fx-text-inner-color: #373737;");
         taskField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent transparent #373737 transparent; -fx-text-inner-color: #373737; -fx-prompt-text-fill: #505050;");
+        createTaskButton.setStyle("-fx-background-color: #373737");
 
         calendarPane.setStyle("-fx-background-color: #373737;");
 

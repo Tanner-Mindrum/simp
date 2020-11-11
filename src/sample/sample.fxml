@@ -22,7 +22,7 @@
                     <font>
                         <Font size="16.0" />
                     </font></TextField>
-                <Button fx:id="createTaskButton" layoutX="280.0" layoutY="419.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="15.0" prefWidth="15.0" style="-fx-shape: &quot;M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z&quot;;" />
+                <Button id="createTaskButton" fx:id="createTaskButton" layoutX="280.0" layoutY="419.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="15.0" prefWidth="15.0" style="" />
                 <TextArea fx:id="taskTextArea" editable="false" layoutX="22.0" layoutY="212.0" prefHeight="172.0" prefWidth="269.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-prompt-text-fill: #FFF; -fx-text-inner-color: #FFF;" text="Current Tasks:&#10;-    There are no tasks" wrapText="true">
                     <font>
                         <Font size="16.0" />
@@ -519,8 +519,8 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <Button layoutX="766.0" layoutY="41.0" minHeight="9.0" minWidth="9.0" mnemonicParsing="false" onAction="#updateYear" prefHeight="9.0" prefWidth="9.0" rotate="90.0" style="-fx-background-color: #737373; -fx-shape: &quot;M351.082,395.509h-149.01c-12.02,0-16.934,8.464-10.979,18.904l74.695,130.913c5.955,10.44,15.619,10.44,21.573,0l74.701-130.919C368.022,403.973,363.101,395.509,351.082,395.509z&quot;;" text="yearDown" />
-        <Button layoutX="824.0" layoutY="41.0" minHeight="9.0" minWidth="9.0" mnemonicParsing="false" onAction="#updateYear" prefHeight="9.0" prefWidth="9.0" rotate="-90.0" style="-fx-background-color: #737373; -fx-shape: &quot;M351.082,395.509h-149.01c-12.02,0-16.934,8.464-10.979,18.904l74.695,130.913c5.955,10.44,15.619,10.44,21.573,0l74.701-130.919C368.022,403.973,363.101,395.509,351.082,395.509z&quot;;" text="yearUp" />
+        <Button id="leftButton" styleClass="yearButton" layoutX="766.0" layoutY="41.0" minHeight="9.0" minWidth="9.0" mnemonicParsing="false" onAction="#updateYear" prefHeight="9.0" prefWidth="9.0" rotate="90.0" style="-fx-background-color: #737373; " text="yearDown" />
+        <Button id="rightButton" styleClass="yearButton" layoutX="824.0" layoutY="41.0" minHeight="9.0" minWidth="9.0" mnemonicParsing="false" onAction="#updateYear" prefHeight="9.0" prefWidth="9.0" rotate="-90.0" style="-fx-background-color: #737373;"  text="yearUp"/>
         <Button layoutX="778.0" layoutY="445.0" minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #1d1d1d" text="Dark Mode" textFill="#f8f8f8"/>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" />
     </children>

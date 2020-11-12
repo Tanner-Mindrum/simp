@@ -100,10 +100,11 @@ public class Controller {
 
     private final int[] daysInMonth = new int[] {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private Button[] monthButtons = new Button[12];
+    private Label[] weekdayLabels = new Label[7];
 
     private int addTaskButtonClickCount;
 
-    private String colorOfDays, colorOfNotDays, colorWeekDays, colorOfMonths, colorSelectedMonth;
+    private String colorOfDays, colorOfNotDays, colorOfWeekdays, colorOfMonths, colorSelectedMonth;
     public Controller() {
 
     }
@@ -112,6 +113,19 @@ public class Controller {
     private void initialize() {
         //Had to be instantiated in here or else it was null
         monthButtons = new Button[] {janButton, febButton, marButton, aprButton, mayButton, junButton, julButton, augButton, sepButton, octButton, novButton, decButton};
+        //Did it here because monthButtons had to as well
+        weekdayLabels = new Label[] {SUNLabel, MONLabel, TUELabel, WEDLabel, THULabel, FRILabel, SATLabel};
+        //Universal colors for between dark mode and light mode
+        colorSelectedMonth = "#171717";
+        //styleSelectedMonth = "-fx-background-color: transparent; -fx-font-weight: bold";
+        colorOfMonths = "#868686";
+        //styleOfMonths = "-fx-background-color: transparent; -fx-font-weight: normal";
+
+        colorOfDays = "#959595";
+        colorOfNotDays = "#ccc";
+
+        colorOfWeekdays = "#737373";
+
         // Gets the Calendar
         Calendar calendar = Calendar.getInstance();
 
@@ -140,13 +154,10 @@ public class Controller {
         monthsOfYear.put("Oct", 9); monthsOfYear.put("Nov", 10); monthsOfYear.put("Dec", 11);
 
         updateTaskList(todayNumber);
-        SUNLabel.setStyle("-fx-font-weight: bold;");
-        MONLabel.setStyle("-fx-font-weight: bold;");
-        TUELabel.setStyle("-fx-font-weight: bold;");
-        WEDLabel.setStyle("-fx-font-weight: bold;");
-        THULabel.setStyle("-fx-font-weight: bold;");
-        FRILabel.setStyle("-fx-font-weight: bold;");
-        SATLabel.setStyle("-fx-font-weight: bold;");
+
+        for(Label weekday : weekdayLabels) {
+            weekday.setStyle("-fx-font-weight: bold;");
+        }
 
 //        // Gets current month, january starts at 0
 //        int currentMonth = calendar.get(Calendar.MONTH);
@@ -198,7 +209,7 @@ public class Controller {
         //Get button
         Button clickedButton = (Button) event.getSource();
         //If button is in this month
-        if(clickedButton.getTextFill().equals(Paint.valueOf("#959595"))) {
+        if(clickedButton.getTextFill().equals(Paint.valueOf(colorOfNotDays))) {
             //Set new date and weekday
             updateCurrentDay(clickedButton);
         }
@@ -246,9 +257,9 @@ public class Controller {
     }
 
     public void updateMonth(Button clicked, Button old) {
-        old.setTextFill(Paint.valueOf("#868686"));                                      //Set old to grey
+        old.setTextFill(Paint.valueOf(colorOfMonths));                                      //Set old to grey
         old.setStyle("-fx-font-weight: Normal; -fx-background-color: transparent");     //Make non-bold
-        clicked.setTextFill(Paint.valueOf(("#171717")));                                //Set new to dark grey
+        clicked.setTextFill(Paint.valueOf((colorSelectedMonth)));                                //Set new to dark grey
         clicked.setStyle("-fx-background-color: transparent; -fx-font-weight: Bold");   //Make bold
         currentMonth = clicked;                                                         //Point to new month
     }
@@ -296,17 +307,17 @@ public class Controller {
                 Button current = (Button) innerNode;
                 if(lastMonthCount <= previousMonthDays) {
                     current.setText(String.valueOf(lastMonthCount));
-                    current.setTextFill(Paint.valueOf("#ccc"));
+                    current.setTextFill(Paint.valueOf(colorOfNotDays));
                     lastMonthCount++;
                 }
                 else if(thisMonthCount <= thisMonthDays) {
                     current.setText(String.valueOf(thisMonthCount));
-                    current.setTextFill(Paint.valueOf("#959595"));
+                    current.setTextFill(Paint.valueOf(colorOfDays));
                     thisMonthCount++;
                 }
                 else {
                     current.setText(String.valueOf(nextMonthCount));
-                    current.setTextFill(Paint.valueOf("#ccc"));
+                    current.setTextFill(Paint.valueOf(colorOfNotDays));
                     nextMonthCount++;
                 }
             }
@@ -436,6 +447,14 @@ public class Controller {
     }
 
     public void changeToLight() {
+        colorSelectedMonth = "#171717";
+        colorOfMonths = "#868686";
+
+        colorOfDays = "#959595";
+        colorOfNotDays = "#ccc";
+
+        colorOfWeekdays = "#737373";
+
         taskDisplayArea.setStyle("-fx-background-color: rgba(53,89,119,0.8)");
         System.out.println("Change to Light");
 
@@ -448,34 +467,84 @@ public class Controller {
         calendarPane.setStyle("-fx-background-color: #FFF;");
 
         for(Button month: monthButtons) {
-            month.setTextFill(Paint.valueOf("#868686"));
+            if(month.equals(currentMonth)) {
+                month.setTextFill(Paint.valueOf(colorSelectedMonth));
+            }
+            else {
+                month.setTextFill(Paint.valueOf(colorOfMonths));
+            }
         }
 
+        //change weekday colors
+        for (Label weekday : weekdayLabels) {
+            weekday.setTextFill(Paint.valueOf(colorOfWeekdays));
+        }
+
+        for (Node node : gridPane.getChildren()) {
+            AnchorPane a = (AnchorPane) node;
+            for (Node innerNode : a.getChildren()) {
+                Button current = (Button) innerNode;
+                if(current.getTextFill().equals(Paint.valueOf("#4c4c4c"))) {
+                    current.setTextFill(Paint.valueOf(colorOfNotDays));
+                }
+                else {
+                    current.setTextFill(Paint.valueOf(colorOfDays));
+                }
+            }
+        }
     }
 
     public void changeToDark() {
+        colorSelectedMonth = "#e8e8e8";
+        colorOfMonths = "#797979";
+
+        colorOfDays = "#6a6a6a";
+        colorOfNotDays = "#4c4c4c";
+
+        colorOfWeekdays = "#8c8c8c";
+
+        //change left pane background
         taskDisplayArea.setStyle("-fx-background-color: rgba(202,166,136,0.8)");
         System.out.println("Change to Dark");
 
+        //change left pane colors
         dayNumberLabelId.setTextFill(Paint.valueOf("#373737"));
         dayLabel.setTextFill(Paint.valueOf("#373737"));
         taskTextArea.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-prompt-text-fill: #373737; -fx-text-inner-color: #373737;");
         taskField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent transparent #373737 transparent; -fx-text-inner-color: #373737; -fx-prompt-text-fill: #505050;");
         createTaskButton.setStyle("-fx-background-color: #373737");
 
+        //change right pane background
         calendarPane.setStyle("-fx-background-color: #373737;");
 
+        //change month colors
         for(Button month: monthButtons) {
-            month.setTextFill(Paint.valueOf("797979"));
+            if(month.equals(currentMonth)) {
+                month.setTextFill(Paint.valueOf(colorSelectedMonth));
+            }
+            else {
+                month.setTextFill(Paint.valueOf(colorOfMonths));
+            }
         }
 
-//        for (Node node : gridPane.getChildren()) {
-//            AnchorPane a = (AnchorPane) node;
-//            for (Node innerNode : a.getChildren()) {
-//                Button current = (Button) innerNode;
-//
-//            }
-//        }
+        //change weekday colors
+        for (Label weekday : weekdayLabels) {
+            weekday.setTextFill(Paint.valueOf(colorOfWeekdays));
+        }
+
+        //change day colors
+        for (Node node : gridPane.getChildren()) {
+            AnchorPane a = (AnchorPane) node;
+            for (Node innerNode : a.getChildren()) {
+                Button current = (Button) innerNode;
+                if(current.getTextFill().equals(Paint.valueOf("#ccc"))) {
+                    current.setTextFill(Paint.valueOf(colorOfNotDays));
+                }
+                else {
+                    current.setTextFill(Paint.valueOf(colorOfDays));
+                }
+            }
+        }
     }
 
     @FXML

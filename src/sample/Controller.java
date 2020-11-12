@@ -117,9 +117,7 @@ public class Controller {
         weekdayLabels = new Label[] {SUNLabel, MONLabel, TUELabel, WEDLabel, THULabel, FRILabel, SATLabel};
         //Universal colors for between dark mode and light mode
         colorSelectedMonth = "#171717";
-        //styleSelectedMonth = "-fx-background-color: transparent; -fx-font-weight: bold";
         colorOfMonths = "#868686";
-        //styleOfMonths = "-fx-background-color: transparent; -fx-font-weight: normal";
 
         colorOfDays = "#959595";
         colorOfNotDays = "#ccc";
@@ -209,7 +207,7 @@ public class Controller {
         //Get button
         Button clickedButton = (Button) event.getSource();
         //If button is in this month
-        if(clickedButton.getTextFill().equals(Paint.valueOf(colorOfNotDays))) {
+        if(clickedButton.getTextFill().equals(Paint.valueOf(colorOfDays))) {
             //Set new date and weekday
             updateCurrentDay(clickedButton);
         }

@@ -516,7 +516,8 @@ public class Controller {
                 else {
                     current.setTextFill(Paint.valueOf(colorOfDays));
                 }
-                current.getStyleClass().removeAll("dayButtonDark");
+                current.getStyleClass().removeAll("dayButtonDark", "dayButtonDarkSelected");
+                if(current.equals(currentDay)) current.getStyleClass().add("dayButtonSelected");
                 current.getStyleClass().add("dayButton");
             }
         }
@@ -576,7 +577,8 @@ public class Controller {
                 else {
                     current.setTextFill(Paint.valueOf(colorOfDays));
                 }
-                current.getStyleClass().removeAll("dayButton");
+                current.getStyleClass().removeAll("dayButton", "dayButtonSelected");
+                if(current.equals(currentDay)) current.getStyleClass().add("dayButtonDarkSelected");
                 current.getStyleClass().add("dayButtonDark");
             }
         }

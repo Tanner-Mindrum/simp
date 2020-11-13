@@ -280,7 +280,6 @@ public class Controller {
     }
 
     public void displayNewMonth(Calendar calendar) {
-        System.out.println(calendar.getTime());
         thisMonth = calendar.get(Calendar.MONTH);
         currentYear = calendar.get(Calendar.YEAR);
         //System.out.println("Month: "+thisMonth+" Year: "+ currentYear);
@@ -482,7 +481,6 @@ public class Controller {
         //************ End Universal Set **************//
 
         taskDisplayArea.setStyle("-fx-background-color: rgba(53,89,119,0.8)");
-        System.out.println("Change to Light");
 
         dayNumberLabelId.setTextFill(Paint.valueOf("white"));
         dayLabel.setTextFill(Paint.valueOf("white"));
@@ -539,7 +537,6 @@ public class Controller {
 
         //change left pane background
         taskDisplayArea.setStyle("-fx-background-color: rgba(202,166,136,0.8)");
-        System.out.println("Change to Dark");
 
         //change left pane colors
         dayNumberLabelId.setTextFill(Paint.valueOf("#373737"));

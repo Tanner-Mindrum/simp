@@ -29,7 +29,7 @@
 #rightButton {
     -fx-shape: "M351.082,395.509h-149.01c-12.02,0-16.934,8.464-10.979,18.904l74.695,130.913c5.955,10.44,15.619,10.44,21.573,0l74.701-130.919C368.022,403.973,363.101,395.509,351.082,395.509z";
 }
-
+/*
 #clickedDay {
     -fx-background-radius: 30px;
     -fx-background-color: #211e1e;
@@ -38,26 +38,34 @@
     -fx-background-radius: 30px;
     -fx-background-color: #211e1e;
 }
+*/
 
+/* For Light Theme */
 .dayButton {
     -fx-background-color: transparent;
+    -fx-background-radius: 30px;
 }
 
 .dayButton:hover {
-    -fx-background-color: #ededed;
-    -fx-background-radius: 30px;
+    -fx-background-color: #EDEDED;
 }
-.dayButton:pressed {
-    button.getStyleClass().removeAll("focus");
-    -fx-background-color:#90EE90;
+
+.dayButtonSelected {
+    -fx-background-color: #EDEDED;
     -fx-background-radius: 30px;
 }
 
+/* For Dark Theme */
 .dayButtonDark {
     -fx-background-color: transparent;
+    -fx-background-radius: 30px;
 }
 
 .dayButtonDark:hover {
-    -fx-background-color: #211e1e;
+    -fx-background-color: #252525;
+}
+
+.dayButtonDarkSelected {
+    -fx-background-color: #252525;
     -fx-background-radius: 30px;
 }

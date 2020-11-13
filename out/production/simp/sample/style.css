@@ -29,16 +29,6 @@
 #rightButton {
     -fx-shape: "M351.082,395.509h-149.01c-12.02,0-16.934,8.464-10.979,18.904l74.695,130.913c5.955,10.44,15.619,10.44,21.573,0l74.701-130.919C368.022,403.973,363.101,395.509,351.082,395.509z";
 }
-/*
-#clickedDay {
-    -fx-background-radius: 30px;
-    -fx-background-color: #211e1e;
-}
-#clickedDay:focus {
-    -fx-background-radius: 30px;
-    -fx-background-color: #211e1e;
-}
-*/
 
 /* For Light Theme */
 .dayButton {
@@ -67,5 +57,15 @@
 
 .dayButtonDarkSelected {
     -fx-background-color: #252525;
+    -fx-background-radius: 30px;
+}
+
+.startingDay {
+    -fx-background-color: rgba(53,89,119,0.8);
+    -fx-background-radius: 30px;
+}
+
+.startingDayDark {
+    -fx-background-color: rgba(202,166,136,0.8);
     -fx-background-radius: 30px;
 }

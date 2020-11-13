@@ -86,7 +86,6 @@ public class Controller {
     private Button currentMonth;
 
     private Button currentDay;
-    private int currentDaySelection;
 
     // Button to change years up and down
     @FXML
@@ -94,7 +93,8 @@ public class Controller {
     @FXML
     private Label yearLabel;
 
-    public int currentYear, thisMonth;
+    private int yearSelection, monthSelection, daySelection;
+    private int startingYear, startingMonth, startingDay;
 
     private final String[] daysOfWeek = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday"};
@@ -107,9 +107,9 @@ public class Controller {
 
     private int addTaskButtonClickCount;
 
-    private String colorOfDays, colorOfNotDays, colorOfWeekdays, colorOfMonths, colorSelectedMonth;
+    private String colorOfDays, colorOfNotDays, colorOfWeekdays, colorOfMonths, colorSelectedMonth, colorOfStartingDay;
 
-    private String notSelectedStylesheet, selectedStylesheet;
+    private String notSelectedStylesheet, selectedStylesheet, startingDayStylesheet;
 
     public Controller() {
 
@@ -130,25 +130,29 @@ public class Controller {
 
         colorOfWeekdays = "#737373";
 
+        colorOfStartingDay = "white";
+
         notSelectedStylesheet = "dayButton";
         selectedStylesheet = "dayButtonSelected";
+        startingDayStylesheet = "startingDay";
 
         // Gets the Calendar
         Calendar calendar = Calendar.getInstance();
 
-        thisMonth = calendar.get(Calendar.MONTH);
+        startingYear = calendar.get(Calendar.YEAR);
+        startingMonth = calendar.get(Calendar.MONTH);
+        startingDay = calendar.get(Calendar.DAY_OF_MONTH);
+
         // Gets and displays the current date
         String todayNumber = Integer.toString(calendar.get(Calendar.DATE));
         String todayFullName = daysOfWeek[calendar.get(Calendar.DAY_OF_WEEK) - 1];
-        currentYear = calendar.get(Calendar.YEAR);
-        System.out.println("CURRENT YEAR: " + currentYear);
         dayNumberLabelId.setText(todayNumber);
         dayLabel.setText(todayFullName.toUpperCase());
 
         displayNewMonth(calendar);
 
 //        System.out.println(thisMonth);
-        currentMonth = monthButtons[thisMonth];
+        currentMonth = monthButtons[monthSelection];
 
 //        System.out.println(currentMonth.getText());
 
@@ -190,14 +194,14 @@ public class Controller {
         String yearDirection = yearButton.getText();
         if (yearDirection.equals("yearUp")){
             // Increment year up one
-            updateYearDisplay(1);
+            updateYearAndDisplay(1);
         } else {
             // Increment year down one
-            updateYearDisplay(-1);
+            updateYearAndDisplay(-1);
         }
         Calendar cal = Calendar.getInstance();                      //Get calendar instance
-        cal.set(Calendar.MONTH, thisMonth);                         //Set calendar to current month
-        cal.set(Calendar.YEAR, currentYear);                        //Set calendar to current year
+        cal.set(Calendar.MONTH, monthSelection);                         //Set calendar to current month
+        cal.set(Calendar.YEAR, yearSelection);                        //Set calendar to current year
         displayNewMonth(cal);                                        //Update viewable calendar
     }
 
@@ -207,7 +211,7 @@ public class Controller {
             newSelectedMonth(monthButton, currentMonth);
             Calendar cal = Calendar.getInstance();
             cal.set(Calendar.MONTH, monthsOfYear.get(currentMonth.getText()));
-            cal.set(Calendar.YEAR, currentYear);
+            cal.set(Calendar.YEAR, yearSelection);
             displayNewMonth(cal);
         }
     }
@@ -239,7 +243,7 @@ public class Controller {
         try {
             String clickedButtonDay = (clickedButton.getText());                        //Get current button number as string
             dayNumberLabelId.setText(clickedButtonDay);                                 //Set current day label with number
-            currentDaySelection = Integer.parseInt(clickedButtonDay);                   //Save value to update new month selection with proper day
+            daySelection = Integer.parseInt(clickedButtonDay);                   //Save value to update new month selection with proper day
 
             String todayFullName = daysOfWeek[GridPane.getColumnIndex(clickedButton)];  //Get weekday name
             dayLabel.setText(todayFullName.toUpperCase());                              //Set it to full uppercase
@@ -251,14 +255,14 @@ public class Controller {
     public void shiftCalendar(int shiftDirection) {
         Button newMonth;
         Calendar calendar = Calendar.getInstance();                                                 //Get a calendar instance
-        calendar.set(Calendar.MONTH, thisMonth + shiftDirection);                                   //Set month to previous month of current month
+        calendar.set(Calendar.MONTH, monthSelection + shiftDirection);                                   //Set month to previous month of current month
         if(monthsOfYear.get(currentMonth.getText()) == 0 && shiftDirection == -1) {                 //If month is january and shifting to previous month
             newMonth = monthButtons[11];                                                            //December
-            updateYearDisplay(shiftDirection);                                                      //Update Year
+            updateYearAndDisplay(shiftDirection);                                                      //Update Year
         }
         else if(monthsOfYear.get(currentMonth.getText()) == 11 && shiftDirection == 1) {            //If month is december and shifting to next month
             newMonth = monthButtons[0];                                                             //January
-            updateYearDisplay(shiftDirection);                                                      //Update Year
+            updateYearAndDisplay(shiftDirection);                                                      //Update Year
         }
         else newMonth = monthButtons[(monthsOfYear.get(currentMonth.getText()) + shiftDirection)];  //Shift calendar forward or backward
         newSelectedMonth(newMonth, currentMonth);
@@ -273,20 +277,19 @@ public class Controller {
         currentMonth = clicked;                                                         //Point to new month
     }
 
-    public void updateYearDisplay(int shiftDirection) {
-        currentYear = Integer.parseInt(yearLabel.getText());
-        currentYear += shiftDirection;
-        yearLabel.setText(String.valueOf(currentYear));
+    public void updateYearAndDisplay(int shiftDirection) {
+        yearSelection = Integer.parseInt(yearLabel.getText());
+        yearSelection += shiftDirection;
+        yearLabel.setText(String.valueOf(yearSelection));
     }
 
     public void displayNewMonth(Calendar calendar) {
-        thisMonth = calendar.get(Calendar.MONTH);
-        currentYear = calendar.get(Calendar.YEAR);
+        monthSelection = calendar.get(Calendar.MONTH);
+        yearSelection = calendar.get(Calendar.YEAR);
         //System.out.println("Month: "+thisMonth+" Year: "+ currentYear);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
-        //Stores value of previous month
+        //Stores value of previous month for indexing
         int previousMonth;
-
 
         int lastMonthCount;
         int thisMonthCount = 1;
@@ -295,17 +298,17 @@ public class Controller {
         int startOfMonth = calendar.get(Calendar.DAY_OF_WEEK) - 1;
 
         if(startOfMonth == 0) startOfMonth += 7;
-        if(thisMonth == 0) {
+        if(monthSelection == 0) {
             previousMonth = 11;
         }
         else {
-            previousMonth = thisMonth - 1;
+            previousMonth = monthSelection - 1;
         }
 
         //Stores values of number of days in month
         //needed for leap years
         int previousMonthDays = checkIfLeapYear(previousMonth);
-        int thisMonthDays = checkIfLeapYear(thisMonth);
+        int thisMonthDays = checkIfLeapYear(monthSelection);
 
         lastMonthCount = previousMonthDays - (startOfMonth - 1);
 
@@ -313,6 +316,8 @@ public class Controller {
             AnchorPane a = (AnchorPane) node;
             for (Node innerNode : a.getChildren()) {
                 Button current = (Button) innerNode;
+                current.getStyleClass().removeAll("startingDay", "startingDayDark");
+                current.getStyleClass().add(notSelectedStylesheet);
                 if(lastMonthCount <= previousMonthDays) {
                     current.setText(String.valueOf(lastMonthCount));
                     current.setTextFill(Paint.valueOf(colorOfNotDays));
@@ -321,7 +326,8 @@ public class Controller {
                 else if(thisMonthCount <= thisMonthDays) {
                     current.setText(String.valueOf(thisMonthCount));
                     current.setTextFill(Paint.valueOf(colorOfDays));
-                    if(thisMonthCount == currentDaySelection) changeCalendarDaySelection(current);
+                    if(thisMonthCount == startingDay && monthSelection == startingMonth && yearSelection == startingYear) highlightStartingDay(current);
+                    if(thisMonthCount == daySelection) changeCalendarDaySelection(current);
                     thisMonthCount++;
                 }
                 else {
@@ -333,9 +339,14 @@ public class Controller {
         }
     }
 
+    private void highlightStartingDay(Button current) {
+        current.getStyleClass().removeAll(selectedStylesheet, notSelectedStylesheet, "startingDay", "startingDayDark");
+        current.getStyleClass().add(startingDayStylesheet);
+        current.setTextFill(Paint.valueOf(colorOfStartingDay));
+    }
+
     public void changeCalendarDaySelection(Button clickedButton) {
-        //Remove current days style class
-        if(currentDay != null) {
+        if (currentDay != null) {
             currentDay.getStyleClass().removeAll(selectedStylesheet);
             currentDay.getStyleClass().add(notSelectedStylesheet);
         }
@@ -346,7 +357,7 @@ public class Controller {
 
     public int checkIfLeapYear(int month) {
         if(month == 1) {
-            if(((currentYear % 4 == 0) && (currentYear % 100!= 0)) || (currentYear%400 == 0)) {
+            if(((yearSelection % 4 == 0) && (yearSelection % 100!= 0)) || (yearSelection %400 == 0)) {
                 return daysInMonth[month] + 1;
             }
         }
@@ -371,7 +382,7 @@ public class Controller {
                 for (Object obj : jsonArray) {
                     JSONObject jsonObj = (JSONObject) obj;
                     // Exists in database if its month/day match the user's selected month/day
-                    if (jsonObj.get("year").equals(currentYear) &&
+                    if (jsonObj.get("year").equals(yearSelection) &&
                             jsonObj.get("month").equals(currentMonth.getText()) &&
                             jsonObj.get("day").equals(dayNumberLabelId.getText())) {
                         objFound = true;
@@ -396,7 +407,7 @@ public class Controller {
                 if (!objFound) {
                     // Create month/day attributes
                     JSONObject newTaskObj = new JSONObject();
-                    newTaskObj.put("year", currentYear);
+                    newTaskObj.put("year", yearSelection);
                     newTaskObj.put("month", currentMonth.getText());
                     newTaskObj.put("day", dayNumberLabelId.getText());
                     // Initialize an array of tasks with the user's task input
@@ -441,7 +452,7 @@ public class Controller {
             for (Object obj : jsonArray) {
                 JSONObject jsonObj = (JSONObject) obj;
                 // Exists in database if its month/day match the user's selected month/day
-                if (jsonObj.get("month").equals(currentMonth.getText()) && ((long) jsonObj.get("year") == currentYear)
+                if (jsonObj.get("month").equals(currentMonth.getText()) && ((long) jsonObj.get("year") == yearSelection)
                         && jsonObj.get("day").equals(currentDay)) {
                     dayClickedFound = true;
                     // Get that object's list of tasks
@@ -476,8 +487,11 @@ public class Controller {
 
         colorOfWeekdays = "#737373";
 
+        colorOfStartingDay = "white";
+
         notSelectedStylesheet = "dayButton";
         selectedStylesheet = "dayButtonSelected";
+        startingDayStylesheet = "startingDay";
         //************ End Universal Set **************//
 
         taskDisplayArea.setStyle("-fx-background-color: rgba(53,89,119,0.8)");
@@ -508,15 +522,19 @@ public class Controller {
             AnchorPane a = (AnchorPane) node;
             for (Node innerNode : a.getChildren()) {
                 Button current = (Button) innerNode;
-                if(current.getTextFill().equals(Paint.valueOf("#4c4c4c"))) {
-                    current.setTextFill(Paint.valueOf(colorOfNotDays));
+                if(current.getTextFill().equals(Paint.valueOf("#373737"))) {
+                    highlightStartingDay(current);
                 }
                 else {
-                    current.setTextFill(Paint.valueOf(colorOfDays));
+                    if (current.getTextFill().equals(Paint.valueOf("#4c4c4c"))) {
+                        current.setTextFill(Paint.valueOf(colorOfNotDays));
+                    } else {
+                        current.setTextFill(Paint.valueOf(colorOfDays));
+                    }
+                    current.getStyleClass().removeAll("dayButtonDark", "dayButtonDarkSelected");
+                    if (current.equals(currentDay)) current.getStyleClass().add("dayButtonSelected");
+                    current.getStyleClass().add("dayButton");
                 }
-                current.getStyleClass().removeAll("dayButtonDark", "dayButtonDarkSelected");
-                if(current.equals(currentDay)) current.getStyleClass().add("dayButtonSelected");
-                current.getStyleClass().add("dayButton");
             }
         }
     }
@@ -531,8 +549,11 @@ public class Controller {
 
         colorOfWeekdays = "#8c8c8c";
 
+        colorOfStartingDay = "#373737";
+
         notSelectedStylesheet = "dayButtonDark";
         selectedStylesheet = "dayButtonDarkSelected";
+        startingDayStylesheet = "startingDayDark";
         //************ End Universal Set **************//
 
         //change left pane background
@@ -568,15 +589,19 @@ public class Controller {
             AnchorPane a = (AnchorPane) node;
             for (Node innerNode : a.getChildren()) {
                 Button current = (Button) innerNode;
-                if(current.getTextFill().equals(Paint.valueOf("#ccc"))) {
-                    current.setTextFill(Paint.valueOf(colorOfNotDays));
+                if(current.getTextFill().equals(Paint.valueOf("#ffffff"))) {
+                    highlightStartingDay(current);
                 }
                 else {
-                    current.setTextFill(Paint.valueOf(colorOfDays));
+                    if (current.getTextFill().equals(Paint.valueOf("#ccc"))) {
+                        current.setTextFill(Paint.valueOf(colorOfNotDays));
+                    } else {
+                        current.setTextFill(Paint.valueOf(colorOfDays));
+                    }
+                    current.getStyleClass().removeAll("dayButton", "dayButtonSelected");
+                    if (current.equals(currentDay)) current.getStyleClass().add("dayButtonDarkSelected");
+                    current.getStyleClass().add("dayButtonDark");
                 }
-                current.getStyleClass().removeAll("dayButton", "dayButtonSelected");
-                if(current.equals(currentDay)) current.getStyleClass().add("dayButtonDarkSelected");
-                current.getStyleClass().add("dayButtonDark");
             }
         }
     }

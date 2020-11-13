@@ -145,7 +145,7 @@ public class Controller {
         dayNumberLabelId.setText(todayNumber);
         dayLabel.setText(todayFullName.toUpperCase());
 
-        updateNewMonth(calendar);
+        displayNewMonth(calendar);
 
 //        System.out.println(thisMonth);
         currentMonth = monthButtons[thisMonth];
@@ -198,17 +198,17 @@ public class Controller {
         Calendar cal = Calendar.getInstance();                      //Get calendar instance
         cal.set(Calendar.MONTH, thisMonth);                         //Set calendar to current month
         cal.set(Calendar.YEAR, currentYear);                        //Set calendar to current year
-        updateNewMonth(cal);                                        //Update viewable calendar
+        displayNewMonth(cal);                                        //Update viewable calendar
     }
 
     public void clickedMonths(ActionEvent event) {
         Button monthButton = (Button) event.getSource();
         if (monthButton != currentMonth) {
-            updateMonth(monthButton, currentMonth);
+            newSelectedMonth(monthButton, currentMonth);
             Calendar cal = Calendar.getInstance();
             cal.set(Calendar.MONTH, monthsOfYear.get(currentMonth.getText()));
             cal.set(Calendar.YEAR, currentYear);
-            updateNewMonth(cal);
+            displayNewMonth(cal);
         }
     }
 
@@ -261,11 +261,11 @@ public class Controller {
             updateYearDisplay(shiftDirection);                                                      //Update Year
         }
         else newMonth = monthButtons[(monthsOfYear.get(currentMonth.getText()) + shiftDirection)];  //Shift calendar forward or backward
-        updateMonth(newMonth, currentMonth);
-        updateNewMonth(calendar);                                                                   //Update calendar
+        newSelectedMonth(newMonth, currentMonth);
+        displayNewMonth(calendar);                                                                   //Update calendar
     }
 
-    public void updateMonth(Button clicked, Button old) {
+    public void newSelectedMonth(Button clicked, Button old) {
         old.setTextFill(Paint.valueOf(colorOfMonths));                                      //Set old to grey
         old.setStyle("-fx-font-weight: Normal; -fx-background-color: transparent");     //Make non-bold
         clicked.setTextFill(Paint.valueOf((colorSelectedMonth)));                                //Set new to dark grey
@@ -279,7 +279,7 @@ public class Controller {
         yearLabel.setText(String.valueOf(currentYear));
     }
 
-    public void updateNewMonth(Calendar calendar) {
+    public void displayNewMonth(Calendar calendar) {
         System.out.println(calendar.getTime());
         thisMonth = calendar.get(Calendar.MONTH);
         currentYear = calendar.get(Calendar.YEAR);

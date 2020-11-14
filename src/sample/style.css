@@ -17,3 +17,55 @@
 .text-area .scroll-pane .content{
     -fx-background-color: transparent;
 }
+
+#createTaskButton {
+    -fx-shape: "M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z";
+}
+
+#leftButton {
+    -fx-shape: "M351.082,395.509h-149.01c-12.02,0-16.934,8.464-10.979,18.904l74.695,130.913c5.955,10.44,15.619,10.44,21.573,0l74.701-130.919C368.022,403.973,363.101,395.509,351.082,395.509z";
+}
+
+#rightButton {
+    -fx-shape: "M351.082,395.509h-149.01c-12.02,0-16.934,8.464-10.979,18.904l74.695,130.913c5.955,10.44,15.619,10.44,21.573,0l74.701-130.919C368.022,403.973,363.101,395.509,351.082,395.509z";
+}
+
+/* For Light Theme */
+.dayButton {
+    -fx-background-color: transparent;
+    -fx-background-radius: 30px;
+}
+
+.dayButton:hover {
+    -fx-background-color: #EDEDED;
+}
+
+.dayButtonSelected {
+    -fx-background-color: #EDEDED;
+    -fx-background-radius: 30px;
+}
+
+/* For Dark Theme */
+.dayButtonDark {
+    -fx-background-color: transparent;
+    -fx-background-radius: 30px;
+}
+
+.dayButtonDark:hover {
+    -fx-background-color: #252525;
+}
+
+.dayButtonDarkSelected {
+    -fx-background-color: #252525;
+    -fx-background-radius: 30px;
+}
+
+.startingDay {
+    -fx-background-color: rgba(53,89,119,0.8);
+    -fx-background-radius: 30px;
+}
+
+.startingDayDark {
+    -fx-background-color: rgba(202,166,136,0.8);
+    -fx-background-radius: 30px;
+}

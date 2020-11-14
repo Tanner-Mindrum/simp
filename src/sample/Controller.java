@@ -294,9 +294,8 @@ public class Controller {
     /**
      * Adds a task to the current month/day selected by user. Updates a pre-existing object with a task if one
      * exists already, otherwise creates a new entry in the database with the user's inputted task
-     * @param event - the button clicked
      */
-    public void addEvent(ActionEvent event) {
+    public void addEvent() {
         if (taskField.getText().length() > 0) {
             JSONParser parser = new JSONParser();
             try (Reader reader = new FileReader("src\\sample\\db.json")) {
@@ -308,7 +307,7 @@ public class Controller {
                 boolean objFound = false;
                 for (Object obj : jsonArray) {
                     JSONObject jsonObj = (JSONObject) obj;
-                    // Exists in database if its month/day match the user's selected month/day
+                    // Exists in database if its year/month/day match the user's selected month/day
                     if (jsonObj.get("year").equals(currentYear) &&
                             jsonObj.get("month").equals(currentMonth.getText()) &&
                             jsonObj.get("day").equals(dayNumberLabelId.getText())) {
@@ -332,7 +331,7 @@ public class Controller {
 
                 // If the user's selected month/day does not exist, create a new entry in database
                 if (!objFound) {
-                    // Create month/day attributes
+                    // Create year/month/day attributes
                     JSONObject newTaskObj = new JSONObject();
                     newTaskObj.put("year", currentYear);
                     newTaskObj.put("month", currentMonth.getText());
@@ -378,7 +377,7 @@ public class Controller {
             boolean dayClickedFound = false;
             for (Object obj : jsonArray) {
                 JSONObject jsonObj = (JSONObject) obj;
-                // Exists in database if its month/day match the user's selected month/day
+                // Exists in database if its year/month/day match the user's selected month/day
                 if (jsonObj.get("month").equals(currentMonth.getText()) && ((long) jsonObj.get("year") == currentYear)
                         && jsonObj.get("day").equals(currentDay)) {
                     dayClickedFound = true;

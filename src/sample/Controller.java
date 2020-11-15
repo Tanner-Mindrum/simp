@@ -149,7 +149,7 @@ public class Controller {
         dayNumberLabelId.setText(todayNumber);
         dayLabel.setText(todayFullName.toUpperCase());
 
-        displayNewMonth(calendar);
+        displayNewMonth(calendar, false);
 
 //        System.out.println(thisMonth);
         currentMonth = monthButtons[monthSelection];
@@ -164,7 +164,7 @@ public class Controller {
         monthsOfYear.put("Jul", 6); monthsOfYear.put("Aug", 7); monthsOfYear.put("Sep", 8);
         monthsOfYear.put("Oct", 9); monthsOfYear.put("Nov", 10); monthsOfYear.put("Dec", 11);
 
-        updateTaskList(todayNumber);
+        updateTaskList();
 
         for(Label weekday : weekdayLabels) {
             weekday.setStyle("-fx-font-weight: bold;");
@@ -202,7 +202,7 @@ public class Controller {
         Calendar cal = Calendar.getInstance();                      //Get calendar instance
         cal.set(Calendar.MONTH, monthSelection);                         //Set calendar to current month
         cal.set(Calendar.YEAR, yearSelection);                        //Set calendar to current year
-        displayNewMonth(cal);                                        //Update viewable calendar
+        displayNewMonth(cal, false);                                        //Update viewable calendar
     }
 
     public void clickedMonths(ActionEvent event) {
@@ -212,7 +212,8 @@ public class Controller {
             Calendar cal = Calendar.getInstance();
             cal.set(Calendar.MONTH, monthsOfYear.get(currentMonth.getText()));
             cal.set(Calendar.YEAR, yearSelection);
-            displayNewMonth(cal);
+            displayNewMonth(cal, false);
+            updateTaskList();
         }
     }
 
@@ -220,26 +221,27 @@ public class Controller {
         //Get button
         Button clickedButton = (Button) event.getSource();
         //If button is in this month
-        if(clickedButton.getTextFill().equals(Paint.valueOf(colorOfDays))) {
+        if(clickedButton.getTextFill().equals(Paint.valueOf(colorOfDays))
+                || clickedButton.getTextFill().equals(Paint.valueOf(colorOfStartingDay))) {
             //Set new date and weekday
-            updateCurrentDayDisplay(clickedButton);
+            updateCurrentDayDisplay(clickedButton, false);
             changeCalendarDaySelection(clickedButton);
         }
         else {
             //If day clicked is in previous month
             if(GridPane.getRowIndex(clickedButton) == 0) {
-                updateCurrentDayDisplay(clickedButton);                                   //Update current day display
+                updateCurrentDayDisplay(clickedButton, true);                                   //Update current day display
                 shiftCalendar(-1);                                      //shift and update calendar
             }
             //If day clicked is in next month
             else {
-                updateCurrentDayDisplay(clickedButton);                                   //Update current day display
+                updateCurrentDayDisplay(clickedButton, true);                                   //Update current day display
                 shiftCalendar(1);                                   //shift calendar and calendar
             }
         }
     }
 
-    public void updateCurrentDayDisplay(Button clickedButton) {
+    public void updateCurrentDayDisplay(Button clickedButton, Boolean shift) {
         try {
             String clickedButtonDay = (clickedButton.getText());                        //Get current button number as string
             dayNumberLabelId.setText(clickedButtonDay);                                 //Set current day label with number
@@ -247,26 +249,36 @@ public class Controller {
 
             String todayFullName = daysOfWeek[GridPane.getColumnIndex(clickedButton)];  //Get weekday name
             dayLabel.setText(todayFullName.toUpperCase());                              //Set it to full uppercase
-            updateTaskList(clickedButtonDay);                                           //Update current day task list
+            //Update current day task list if user clicks day on same month
+            if (!shift) {
+                updateTaskList();
+            }
         } catch (NumberFormatException ignored) {
         }
     }
 
     public void shiftCalendar(int shiftDirection) {
+        boolean changedYearFromGrayButtons = false;
         Button newMonth;
         Calendar calendar = Calendar.getInstance();                                                 //Get a calendar instance
         calendar.set(Calendar.MONTH, monthSelection + shiftDirection);                                   //Set month to previous month of current month
         if(monthsOfYear.get(currentMonth.getText()) == 0 && shiftDirection == -1) {                 //If month is january and shifting to previous month
             newMonth = monthButtons[11];                                                            //December
             updateYearAndDisplay(shiftDirection);                                                      //Update Year
+            changedYearFromGrayButtons = true;
         }
         else if(monthsOfYear.get(currentMonth.getText()) == 11 && shiftDirection == 1) {            //If month is december and shifting to next month
             newMonth = monthButtons[0];                                                             //January
             updateYearAndDisplay(shiftDirection);                                                      //Update Year
+            changedYearFromGrayButtons = true;
         }
-        else newMonth = monthButtons[(monthsOfYear.get(currentMonth.getText()) + shiftDirection)];  //Shift calendar forward or backward
+        else {
+            newMonth = monthButtons[(monthsOfYear.get(currentMonth.getText()) + shiftDirection)];  //Shift calendar forward or backward
+        }
         newSelectedMonth(newMonth, currentMonth);
-        displayNewMonth(calendar);                                                                   //Update calendar
+        displayNewMonth(calendar, changedYearFromGrayButtons);                                                                   //Update calendar
+        // Task list must be updated upon a calendar shift
+        updateTaskList();
     }
 
     public void newSelectedMonth(Button clicked, Button old) {
@@ -281,11 +293,14 @@ public class Controller {
         yearSelection = Integer.parseInt(yearLabel.getText());
         yearSelection += shiftDirection;
         yearLabel.setText(String.valueOf(yearSelection));
+        updateTaskList();
     }
 
-    public void displayNewMonth(Calendar calendar) {
-        monthSelection = calendar.get(Calendar.MONTH);
-        yearSelection = calendar.get(Calendar.YEAR);
+    public void displayNewMonth(Calendar calendar, Boolean changedYearFromGrayButtons) {
+        if (!changedYearFromGrayButtons) {
+            monthSelection = calendar.get(Calendar.MONTH);
+            yearSelection = calendar.get(Calendar.YEAR);
+        }
         //System.out.println("Month: "+thisMonth+" Year: "+ currentYear);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         //Stores value of previous month for indexing
@@ -326,8 +341,11 @@ public class Controller {
                 else if(thisMonthCount <= thisMonthDays) {
                     current.setText(String.valueOf(thisMonthCount));
                     current.setTextFill(Paint.valueOf(colorOfDays));
-                    if(thisMonthCount == startingDay && monthSelection == startingMonth && yearSelection == startingYear) highlightStartingDay(current);
-                    if(thisMonthCount == daySelection) changeCalendarDaySelection(current);
+                    if(thisMonthCount == startingDay && monthSelection == startingMonth && yearSelection == startingYear) {
+                        highlightStartingDay(current);
+                    }
+                    if(thisMonthCount == daySelection)
+                        changeCalendarDaySelection(current);
                     thisMonthCount++;
                 }
                 else {
@@ -437,9 +455,8 @@ public class Controller {
      * Searches through JSON database and checks if an object exists with the current day selected.
      * Updates the text area with tasks if object exists, otherwise sets text to default
      * no tasks exist yet message
-     * @param currentDay - the day number
      */
-    public void updateTaskList(String currentDay) {
+    public void updateTaskList() {
         JSONParser parser = new JSONParser();
 //        try (Reader reader = new FileReader("simp\\src\\sample\\db.json")) {
         try (Reader reader = new FileReader("src\\sample\\db.json")) {
@@ -452,7 +469,7 @@ public class Controller {
                 JSONObject jsonObj = (JSONObject) obj;
                 // Exists in database if its month/day match the user's selected month/day
                 if (jsonObj.get("month").equals(currentMonth.getText()) && ((long) jsonObj.get("year") == yearSelection)
-                        && jsonObj.get("day").equals(currentDay)) {
+                        && jsonObj.get("day").equals(dayNumberLabelId.getText())) {
                     dayClickedFound = true;
                     // Get that object's list of tasks
                     JSONArray taskArray = (JSONArray) jsonObj.get("tasks");
@@ -472,7 +489,6 @@ public class Controller {
         }
         catch (IOException | org.json.simple.parser.ParseException e) {
             e.printStackTrace();
-            //System.out.println("Error");
         }
     }
 

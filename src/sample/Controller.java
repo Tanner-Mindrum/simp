@@ -301,6 +301,7 @@ public class Controller {
             monthSelection = calendar.get(Calendar.MONTH);
             yearSelection = calendar.get(Calendar.YEAR);
         }
+        //System.out.println(monthSelection);
         //System.out.println("Month: "+thisMonth+" Year: "+ currentYear);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         //Stores value of previous month for indexing
@@ -319,6 +320,7 @@ public class Controller {
         else {
             previousMonth = monthSelection - 1;
         }
+        //System.out.println("p" + previousMonth);
 
         //Stores values of number of days in month
         //needed for leap years

@@ -153,7 +153,7 @@ public class Controller {
         currentMonth = monthButtons[monthSelection];
 
         currentMonth.setTextFill(Paint.valueOf(("#171717")));
-        currentMonth.setStyle("-fx-background-color: transparent; -fx-font-weight: Bold");
+        currentMonth.setStyle("-fx-background-color: transparent; -fx-font-weight: Bold; -fx-cursor: hand;");
 
         monthsOfYear.put("Jan", 0); monthsOfYear.put("Feb", 1); monthsOfYear.put("Mar", 2);
         monthsOfYear.put("Apr", 3); monthsOfYear.put("May", 4); monthsOfYear.put("Jun", 5);
@@ -233,9 +233,9 @@ public class Controller {
 
     public void newSelectedMonth(Button clicked, Button old) {
         old.setTextFill(Paint.valueOf(colorOfMonths));                                      //Set old to grey
-        old.setStyle("-fx-font-weight: Normal; -fx-background-color: transparent");     //Make non-bold
+        old.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");     //Make non-bold
         clicked.setTextFill(Paint.valueOf((colorSelectedMonth)));                                //Set new to dark grey
-        clicked.setStyle("-fx-background-color: transparent; -fx-font-weight: Bold");   //Make bold
+        clicked.setStyle("-fx-background-color: transparent; -fx-font-weight: Bold; -fx-cursor: hand;");   //Make bold
         currentMonth = clicked;                                                         //Point to new month
     }
 
@@ -455,6 +455,7 @@ public class Controller {
             catch (IOException | ParseException e) {
                 e.printStackTrace();
             }
+            taskField.clear();
         }
     }
 
@@ -523,7 +524,7 @@ public class Controller {
         dayLabel.setTextFill(Paint.valueOf("white"));
         taskTextArea.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-prompt-text-fill: #FFF; -fx-text-inner-color: #FFF;");
         taskField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent transparent #FFF transparent; -fx-text-inner-color: #FFF; -fx-prompt-text-fill: #C0C0C0;");
-        createTaskButton.setStyle("-fx-background-color: #FFF");
+        createTaskButton.setStyle("-fx-background-color: #FFF; -fx-cursor: hand");
 
         calendarPane.setStyle("-fx-background-color: #FFF;");
 
@@ -587,7 +588,7 @@ public class Controller {
         dayLabel.setTextFill(Paint.valueOf("#373737"));
         taskTextArea.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-prompt-text-fill: #373737; -fx-text-inner-color: #373737;");
         taskField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent transparent #373737 transparent; -fx-text-inner-color: #373737; -fx-prompt-text-fill: #505050;");
-        createTaskButton.setStyle("-fx-background-color: #373737");
+        createTaskButton.setStyle("-fx-background-color: #373737; -fx-cursor: hand");
 
         //change right pane background
         calendarPane.setStyle("-fx-background-color: #373737;");
@@ -633,13 +634,13 @@ public class Controller {
     public void changeMode(ActionEvent actionEvent) {
         Button modeButton = (Button) actionEvent.getSource();
         if(modeButton.getText().compareTo("Dark Mode") == 0) {
-            modeButton.setStyle("-fx-background-color: #f8f8f8");
+            modeButton.setStyle("-fx-background-color: #f8f8f8; -fx-cursor: hand;");
             modeButton.setTextFill(Paint.valueOf("#1d1d1d"));
             modeButton.setText("Light Mode");
             changeToDark();
         }
         else {
-            modeButton.setStyle("-fx-background-color: #1d1d1d");
+            modeButton.setStyle("-fx-background-color: #1d1d1d; -fx-cursor: hand;");
             modeButton.setTextFill(Paint.valueOf("#f8f8f8"));
             modeButton.setText("Dark Mode");
             changeToLight();
@@ -668,10 +669,13 @@ public class Controller {
     Button theModeButton;
     public void changeModeInitialize(String mode) {
         if(mode.equals("dark")) {
-            theModeButton.setStyle("-fx-background-color: #f8f8f8");
+            theModeButton.setStyle("-fx-background-color: #f8f8f8; -fx-cursor: hand");
             theModeButton.setTextFill(Paint.valueOf("#1d1d1d"));
             theModeButton.setText("Light Mode");
             changeToDark();
+        }
+        else {
+            createTaskButton.setStyle("-fx-background-color: #FFF; -fx-cursor: hand");
         }
     }
 }

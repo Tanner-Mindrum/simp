@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -18,12 +19,12 @@
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <TextField fx:id="taskField" layoutX="27.0" layoutY="405.0" prefHeight="25.0" prefWidth="269.0" promptText="Create a Task" style="-fx-background-color: transparent; -fx-border-color: transparent transparent #FFF transparent; -fx-text-inner-color: #FFF; -fx-prompt-text-fill: #C0C0C0;">
+                <TextField fx:id="taskField" layoutX="27.0" layoutY="405.0" onAction="#addEvent" prefHeight="25.0" prefWidth="269.0" promptText="Create a Task" style="-fx-background-color: transparent; -fx-border-color: transparent transparent #FFF transparent; -fx-text-inner-color: #FFF; -fx-prompt-text-fill: #C0C0C0;">
                     <font>
                         <Font size="16.0" />
                     </font></TextField>
-                <Button id="createTaskButton" fx:id="createTaskButton" layoutX="280.0" layoutY="419.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="15.0" prefWidth="15.0" style="" />
-                <TextArea fx:id="taskTextArea" editable="false" layoutX="22.0" layoutY="212.0" prefHeight="172.0" prefWidth="269.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-prompt-text-fill: #FFF; -fx-text-inner-color: #FFF;" text="Current Tasks:&#10;-    There are no tasks" wrapText="true">
+                <Button id="createTaskButton" fx:id="createTaskButton" layoutX="280.0" layoutY="419.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="15.0" prefWidth="15.0" />
+                <TextArea fx:id="taskTextArea" editable="false" layoutX="27.0" layoutY="212.0" prefHeight="172.0" prefWidth="269.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-prompt-text-fill: #FFF; -fx-text-inner-color: #FFF; -fx-cursor: hand;" text="Current Tasks:&#10;-    There are no tasks" wrapText="true">
                     <font>
                         <Font size="16.0" />
                     </font></TextArea>
@@ -465,52 +466,55 @@
                 <Font size="16.0" />
             </font>
         </Label>
-        <Button fx:id="janButton" layoutX="350.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Jan" textFill="#868686">
+        <Button fx:id="janButton" depthTest="DISABLE" layoutX="350.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Jan" textFill="#868686">
+            <font>
+                <Font size="13.0" />
+            </font>
+         <rotationAxis>
+            <Point3D />
+         </rotationAxis></Button>
+        <Button fx:id="febButton" layoutX="388.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Feb" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button fx:id="febButton" layoutX="388.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Feb" textFill="#868686">
+        <Button fx:id="marButton" layoutX="428.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Mar" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button fx:id="marButton" layoutX="428.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Mar" textFill="#868686">
+        <Button fx:id="aprButton" layoutX="470.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Apr" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button fx:id="aprButton" layoutX="470.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Apr" textFill="#868686">
+        <Button fx:id="mayButton" layoutX="510.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-cursor: hand;" text="May" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button fx:id="mayButton" layoutX="510.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="May" textFill="#868686">
+        <Button fx:id="junButton" layoutX="552.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Jun" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button fx:id="junButton" layoutX="552.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Jun" textFill="#868686">
+        <Button fx:id="julButton" layoutX="590.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Jul" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button fx:id="julButton" layoutX="590.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Jul" textFill="#868686">
+        <Button fx:id="augButton" layoutX="626.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Aug" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button fx:id="augButton" layoutX="626.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Aug" textFill="#868686">
+        <Button fx:id="sepButton" layoutX="668.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Sep" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button fx:id="sepButton" layoutX="668.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Sep" textFill="#868686">
-            <font>
-                <Font size="13.0" />
-            </font></Button>
-        <Button fx:id="octButton" layoutX="708.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Oct" textFill="#868686">
+        <Button fx:id="octButton" layoutX="708.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-cursor: hand;" styleClass="octButton" text="Oct" textFill="#868686">
 <!--        <Button fx:id="OctButton" layoutX="708.0" layoutY="70.0" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: transparent;" text="Oct" textFill="#171717">-->
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button fx:id="novButton" layoutX="748.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Nov" textFill="#868686">
+        <Button fx:id="novButton" layoutX="748.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-cursor: hand;" styleClass="novButton" text="Nov" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
-        <Button fx:id="decButton" layoutX="791.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-font-weight: normal;" text="Dec" textFill="#868686">
+        <Button fx:id="decButton" layoutX="791.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickedMonths" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Dec" textFill="#868686">
             <font>
                 <Font size="13.0" />
             </font></Button>
@@ -519,9 +523,9 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <Button id="leftButton" layoutX="766.0" layoutY="41.0" minHeight="9.0" minWidth="9.0" mnemonicParsing="false" onAction="#updateYear" prefHeight="9.0" prefWidth="9.0" rotate="90.0" style="-fx-background-color: #737373; " styleClass="yearButton" text="yearDown" />
-        <Button id="rightButton" layoutX="824.0" layoutY="41.0" minHeight="9.0" minWidth="9.0" mnemonicParsing="false" onAction="#updateYear" prefHeight="9.0" prefWidth="9.0" rotate="-90.0" style="-fx-background-color: #737373;" styleClass="yearButton" text="yearUp" />
-        <Button fx:id="theModeButton" layoutX="778.0" layoutY="445.0" minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #1d1d1d" text="Dark Mode" textFill="#f8f8f8" />
+        <Button id="leftButton" layoutX="766.0" layoutY="41.0" minHeight="9.0" minWidth="9.0" mnemonicParsing="false" onAction="#updateYear" prefHeight="9.0" prefWidth="9.0" rotate="90.0" style="-fx-background-color: #737373; -fx-cursor: hand;" styleClass="yearButton" text="yearDown" />
+        <Button id="rightButton" layoutX="824.0" layoutY="41.0" minHeight="9.0" minWidth="9.0" mnemonicParsing="false" onAction="#updateYear" prefHeight="9.0" prefWidth="9.0" rotate="-90.0" style="-fx-background-color: #737373; -fx-cursor: hand;" styleClass="yearButton" text="yearUp" />
+        <Button fx:id="theModeButton" layoutX="778.0" layoutY="445.0" minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #1d1d1d; -fx-cursor: hand;" text="Dark Mode" textFill="#f8f8f8" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" />
     </children>
 </AnchorPane>

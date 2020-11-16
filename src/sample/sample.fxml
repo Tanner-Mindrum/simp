@@ -24,7 +24,7 @@
                         <Font size="16.0" />
                     </font></TextField>
                 <Button id="createTaskButton" fx:id="createTaskButton" layoutX="280.0" layoutY="419.0" minHeight="15.0" minWidth="15.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="15.0" prefWidth="15.0" />
-                <TextArea fx:id="taskTextArea" editable="false" layoutX="27.0" layoutY="212.0" prefHeight="172.0" prefWidth="269.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-prompt-text-fill: #FFF; -fx-text-inner-color: #FFF; -fx-cursor: hand;" text="Current Tasks:&#10;-    There are no tasks" wrapText="true">
+                <TextArea fx:id="taskTextArea" editable="false" layoutX="22.0" layoutY="212.0" prefHeight="172.0" prefWidth="274.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-prompt-text-fill: #FFF; -fx-text-inner-color: #FFF; -fx-cursor: hand;" text="Current Tasks:&#10;-    There are no tasks" wrapText="true">
                     <font>
                         <Font size="16.0" />
                     </font></TextArea>

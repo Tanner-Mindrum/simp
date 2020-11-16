@@ -40,6 +40,20 @@
     -fx-background-radius: 30px;
 }
 
+/*.button:task-dot {*/
+/*    -fx-content-display: ' ';*/
+/*    -fx-width: 5px;*/
+/*    -fx-height: 5px;*/
+/*    -fx-position: absolute;*/
+/*    -fx-vgap: 70;*/
+/*    -fx-hgap: 7;*/
+/*    -fx-background-color: #1400c7;*/
+/*}*/
+.label:task-dot {
+    -fx-background-color: #1400c7;
+    -fx-background-radius: 30px;
+}
+
 .dayButton:hover {
     -fx-background-color: #EDEDED;
     -fx-cursor: hand;
@@ -48,6 +62,10 @@
 .dayButtonSelected {
     -fx-background-color: #EDEDED;
     -fx-background-radius: 30px;
+}
+
+.dayButtonSelected:hover {
+    -fx-cursor: hand;
 }
 
 /* For Dark Theme */
@@ -64,6 +82,10 @@
 .dayButtonDarkSelected {
     -fx-background-color: #252525;
     -fx-background-radius: 30px;
+}
+
+.dayButtonDarkSelected:hover {
+    -fx-cursor: hand;
 }
 
 .startingDay {

@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -108,6 +109,8 @@ public class Controller {
 
     private String notSelectedStylesheet, selectedStylesheet, startingDayStylesheet;
 
+    private PseudoClass taskDot = PseudoClass.getPseudoClass("task-dot");
+
     public Controller() {
 
     }
@@ -190,6 +193,24 @@ public class Controller {
             changeModeInitialize((String) modeObj.get("mode"));
         } catch (IOException | ParseException e) {
             e.printStackTrace();
+        }
+
+        for (Node node : gridPane.getChildren()) {
+            AnchorPane a = (AnchorPane) node;
+            for (Node innerNode : a.getChildren()) {
+                if (innerNode instanceof Button) {
+                    Button current = (Button) innerNode;
+                    if (current.getText().equals(dayNumberLabelId.getText())) {
+                        AnchorPane ap = (AnchorPane) current.getParent();
+                        for (Node innerInnerNode : ap.getChildren()) {
+                            if (innerInnerNode instanceof Label) {
+                                Label innerLabel = (Label) innerInnerNode;
+                                innerLabel.pseudoClassStateChanged(taskDot, true);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -322,29 +343,29 @@ public class Controller {
         for (Node node : gridPane.getChildren()) {
             AnchorPane a = (AnchorPane) node;
             for (Node innerNode : a.getChildren()) {
-                Button current = (Button) innerNode;
-                current.getStyleClass().removeAll("startingDay", "startingDayDark");
-                current.getStyleClass().add(notSelectedStylesheet);
-                if(lastMonthCount <= previousMonthDays) {
-                    current.setText(String.valueOf(lastMonthCount));
-                    current.setTextFill(Paint.valueOf(colorOfNotDays));
-                    lastMonthCount++;
-                }
-                else if(thisMonthCount <= thisMonthDays) {
-                    current.setText(String.valueOf(thisMonthCount));
-                    current.setTextFill(Paint.valueOf(colorOfDays));
-                    if(thisMonthCount == startingDay && monthSelection == startingMonth
-                            && yearSelection == startingYear) {
-                        highlightStartingDay(current);
+                if (innerNode instanceof Button) {
+                    Button current = (Button) innerNode;
+                    current.getStyleClass().removeAll("startingDay", "startingDayDark");
+                    current.getStyleClass().add(notSelectedStylesheet);
+                    if (lastMonthCount <= previousMonthDays) {
+                        current.setText(String.valueOf(lastMonthCount));
+                        current.setTextFill(Paint.valueOf(colorOfNotDays));
+                        lastMonthCount++;
+                    } else if (thisMonthCount <= thisMonthDays) {
+                        current.setText(String.valueOf(thisMonthCount));
+                        current.setTextFill(Paint.valueOf(colorOfDays));
+                        if (thisMonthCount == startingDay && monthSelection == startingMonth
+                                && yearSelection == startingYear) {
+                            highlightStartingDay(current);
+                        }
+                        if (thisMonthCount == daySelection)
+                            changeCalendarDaySelection(current);
+                        thisMonthCount++;
+                    } else {
+                        current.setText(String.valueOf(nextMonthCount));
+                        current.setTextFill(Paint.valueOf(colorOfNotDays));
+                        nextMonthCount++;
                     }
-                    if(thisMonthCount == daySelection)
-                        changeCalendarDaySelection(current);
-                    thisMonthCount++;
-                }
-                else {
-                    current.setText(String.valueOf(nextMonthCount));
-                    current.setTextFill(Paint.valueOf(colorOfNotDays));
-                    nextMonthCount++;
                 }
             }
         }
@@ -392,7 +413,7 @@ public class Controller {
      * Adds a task to the current month/day selected by user. Updates a pre-existing object with a task if one
      * exists already, otherwise creates a new entry in the database with the user's inputted task
      */
-    public void addEvent() {
+    public void addEvent(ActionEvent event) {
         if (taskField.getText().length() > 0) {
             JSONParser parser = new JSONParser();
             try (Reader reader = new FileReader("src\\sample\\db.json")) {
@@ -545,19 +566,20 @@ public class Controller {
         for (Node node : gridPane.getChildren()) {
             AnchorPane a = (AnchorPane) node;
             for (Node innerNode : a.getChildren()) {
-                Button current = (Button) innerNode;
-                if(current.getTextFill().equals(Paint.valueOf("#373737"))) {
-                    highlightStartingDay(current);
-                }
-                else {
-                    if (current.getTextFill().equals(Paint.valueOf("#4c4c4c"))) {
-                        current.setTextFill(Paint.valueOf(colorOfNotDays));
+                if (innerNode instanceof Button) {
+                    Button current = (Button) innerNode;
+                    if (current.getTextFill().equals(Paint.valueOf("#373737"))) {
+                        highlightStartingDay(current);
                     } else {
-                        current.setTextFill(Paint.valueOf(colorOfDays));
+                        if (current.getTextFill().equals(Paint.valueOf("#4c4c4c"))) {
+                            current.setTextFill(Paint.valueOf(colorOfNotDays));
+                        } else {
+                            current.setTextFill(Paint.valueOf(colorOfDays));
+                        }
+                        current.getStyleClass().removeAll("dayButtonDark", "dayButtonDarkSelected");
+                        if (current.equals(currentDay)) current.getStyleClass().add("dayButtonSelected");
+                        current.getStyleClass().add("dayButton");
                     }
-                    current.getStyleClass().removeAll("dayButtonDark", "dayButtonDarkSelected");
-                    if (current.equals(currentDay)) current.getStyleClass().add("dayButtonSelected");
-                    current.getStyleClass().add("dayButton");
                 }
             }
         }
@@ -612,19 +634,20 @@ public class Controller {
         for (Node node : gridPane.getChildren()) {
             AnchorPane a = (AnchorPane) node;
             for (Node innerNode : a.getChildren()) {
-                Button current = (Button) innerNode;
-                if(current.getTextFill().equals(Paint.valueOf("#ffffff"))) {
-                    highlightStartingDay(current);
-                }
-                else {
-                    if (current.getTextFill().equals(Paint.valueOf("#ccc"))) {
-                        current.setTextFill(Paint.valueOf(colorOfNotDays));
+                if (innerNode instanceof Button) {
+                    Button current = (Button) innerNode;
+                    if (current.getTextFill().equals(Paint.valueOf("#ffffff"))) {
+                        highlightStartingDay(current);
                     } else {
-                        current.setTextFill(Paint.valueOf(colorOfDays));
+                        if (current.getTextFill().equals(Paint.valueOf("#ccc"))) {
+                            current.setTextFill(Paint.valueOf(colorOfNotDays));
+                        } else {
+                            current.setTextFill(Paint.valueOf(colorOfDays));
+                        }
+                        current.getStyleClass().removeAll("dayButton", "dayButtonSelected");
+                        if (current.equals(currentDay)) current.getStyleClass().add("dayButtonDarkSelected");
+                        current.getStyleClass().add("dayButtonDark");
                     }
-                    current.getStyleClass().removeAll("dayButton", "dayButtonSelected");
-                    if (current.equals(currentDay)) current.getStyleClass().add("dayButtonDarkSelected");
-                    current.getStyleClass().add("dayButtonDark");
                 }
             }
         }

@@ -65,7 +65,15 @@
     -fx-background-radius: 30px;
 }
 
+.startingDay:hover {
+    -fx-background-color: rgba(53,89,119,0.8);
+}
+
 .startingDayDark {
     -fx-background-color: rgba(202,166,136,0.8);
     -fx-background-radius: 30px;
+}
+
+.startingDayDark:hover {
+    -fx-background-color: rgba(202,166,136,0.8);
 }

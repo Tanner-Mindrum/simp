@@ -16,10 +16,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -118,7 +115,8 @@ public class Controller {
     @FXML
     private void initialize() {
         //Had to be instantiated in here or else it was null
-        monthButtons = new Button[] {janButton, febButton, marButton, aprButton, mayButton, junButton, julButton, augButton, sepButton, octButton, novButton, decButton};
+        monthButtons = new Button[] {janButton, febButton, marButton, aprButton, mayButton, junButton, julButton,
+                augButton, sepButton, octButton, novButton, decButton};
         //Did it here because monthButtons had to as well
         weekdayLabels = new Label[] {SUNLabel, MONLabel, TUELabel, WEDLabel, THULabel, FRILabel, SATLabel};
         //Universal colors for between dark mode and light mode
@@ -152,10 +150,7 @@ public class Controller {
         displayNewMonth(calendar, false);
         updateCurrentDayDisplay(currentDay);
 
-//        System.out.println(thisMonth);
         currentMonth = monthButtons[monthSelection];
-
-//        System.out.println(currentMonth.getText());
 
         currentMonth.setTextFill(Paint.valueOf(("#171717")));
         currentMonth.setStyle("-fx-background-color: transparent; -fx-font-weight: Bold");
@@ -187,6 +182,15 @@ public class Controller {
 //        monthsOfYear.put("Jul", 7); monthsOfYear.put("Aug", 8); monthsOfYear.put("Sep", 9);
 //        monthsOfYear.put("Oct", 10); monthsOfYear.put("Nov", 11); monthsOfYear.put("Dec", 12);
         addTaskButtonClickCount = 0;
+
+        JSONParser parser = new JSONParser();
+        try (Reader reader = new FileReader("src\\sample\\db.json")) {
+            JSONArray jsonArray = (JSONArray) parser.parse(reader);
+            JSONObject modeObj = (JSONObject) jsonArray.get(1);
+            changeModeInitialize((String) modeObj.get("mode"));
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     // Updates year when
@@ -203,7 +207,7 @@ public class Controller {
         Calendar cal = Calendar.getInstance();                      //Get calendar instance
         cal.set(Calendar.MONTH, monthSelection);                         //Set calendar to current month
         cal.set(Calendar.YEAR, yearSelection);                        //Set calendar to current year
-        displayNewMonth(cal, false);                                        //Update viewable calendar
+        displayNewMonth(cal, false);               //Update viewable calendar
         updateCurrentDayDisplay(currentDay);
         updateTaskList();
     }
@@ -281,8 +285,6 @@ public class Controller {
         }
         newSelectedMonth(newMonth, currentMonth);
         displayNewMonth(calendar, changedYearFromGrayButtons);                                                                   //Update calendar
-        // Task list must be updated upon a calendar shift
-        //updateTaskList();
     }
 
     public void displayNewMonth(Calendar calendar, Boolean changedYearFromGrayButtons) {
@@ -291,8 +293,6 @@ public class Controller {
         if (!changedYearFromGrayButtons) {
             yearSelection = calendar.get(Calendar.YEAR);
         }
-        //System.out.println(monthSelection);
-        //System.out.println("Month: "+thisMonth+" Year: "+ currentYear);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         System.out.println("Starting Day:" + calendar.get(Calendar.DAY_OF_WEEK));
         //Stores value of previous month for indexing
@@ -311,7 +311,6 @@ public class Controller {
         else {
             previousMonth = monthSelection - 1;
         }
-        //System.out.println("p" + previousMonth);
 
         //Stores values of number of days in month
         //needed for leap years
@@ -334,7 +333,8 @@ public class Controller {
                 else if(thisMonthCount <= thisMonthDays) {
                     current.setText(String.valueOf(thisMonthCount));
                     current.setTextFill(Paint.valueOf(colorOfDays));
-                    if(thisMonthCount == startingDay && monthSelection == startingMonth && yearSelection == startingYear) {
+                    if(thisMonthCount == startingDay && monthSelection == startingMonth
+                            && yearSelection == startingYear) {
                         highlightStartingDay(current);
                     }
                     if(thisMonthCount == daySelection)
@@ -358,17 +358,15 @@ public class Controller {
 
             String todayFullName = daysOfWeek[GridPane.getColumnIndex(clickedButton)];  //Get weekday name
             dayLabel.setText(todayFullName.toUpperCase());                              //Set it to full uppercase
-            //Update current day task list if user clicks day on same month
-//            if (!shift) {
-//                updateTaskList();
-//            }
-        } catch (NumberFormatException ignored) {
+        }
+        catch (NumberFormatException ignored) {
         }
     }
 
     private void highlightStartingDay(Button current) {
         if(currentDay == null) currentDay = current;
-        current.getStyleClass().removeAll(selectedStylesheet, notSelectedStylesheet, "startingDay", "startingDayDark");
+        current.getStyleClass().removeAll(selectedStylesheet, notSelectedStylesheet,
+                "startingDay", "startingDayDark");
         current.getStyleClass().add(startingDayStylesheet);
         current.setTextFill(Paint.valueOf(colorOfStartingDay));
     }
@@ -400,11 +398,12 @@ public class Controller {
             try (Reader reader = new FileReader("src\\sample\\db.json")) {
                 // Get JSONArray of days with tasks
                 JSONArray jsonArray = (JSONArray) parser.parse(reader);
+                JSONArray taskJsonArray = (JSONArray) ((JSONObject) jsonArray.get(0)).get("allTasks");
 
-            /* Search JSON database. If a day with tasks already exists, add the users inputted task to it.
-             If it does not exist, create a new JSON object and add it to the database */
+                /* Search JSON database. If a day with tasks already exists, add the users inputted task to it.
+                If it does not exist, create a new JSON object and add it to the database */
                 boolean objFound = false;
-                for (Object obj : jsonArray) {
+                for (Object obj : taskJsonArray) {
                     JSONObject jsonObj = (JSONObject) obj;
                     // Exists in database if its year/month/day match the user's selected month/day
                     if ((long) jsonObj.get("year") == yearSelection &&
@@ -440,7 +439,7 @@ public class Controller {
                     tasks.add(taskField.getText());
                     newTaskObj.put("tasks", tasks);
                     // Add this newly created JSON object to database and write to file
-                    jsonArray.add(newTaskObj);
+                    taskJsonArray.add(newTaskObj);
                     try (FileWriter file = new FileWriter("src\\sample\\db.json")) {
                         file.write(jsonArray.toJSONString());
                         file.flush();
@@ -470,10 +469,11 @@ public class Controller {
         try (Reader reader = new FileReader("src\\sample\\db.json")) {
             // Get JSONArray of days with tasks
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
+            JSONArray taskJsonArray = (JSONArray) ((JSONObject) jsonArray.get(0)).get("allTasks");
 
             // Iterate through JSON objects (existing days with tasks) in database
             boolean dayClickedFound = false;
-            for (Object obj : jsonArray) {
+            for (Object obj : taskJsonArray) {
                 JSONObject jsonObj = (JSONObject) obj;
                 // Exists in database if its month/day match the user's selected month/day
                 if (jsonObj.get("month").equals(currentMonth.getText()) && ((long) jsonObj.get("year") == yearSelection)
@@ -643,6 +643,35 @@ public class Controller {
             modeButton.setTextFill(Paint.valueOf("#f8f8f8"));
             modeButton.setText("Dark Mode");
             changeToLight();
+        }
+        // Update user's desired mode in JSON database
+        JSONParser parser = new JSONParser();
+        try (Reader reader = new FileReader("src\\sample\\db.json")) {
+            JSONArray jsonArray = (JSONArray) parser.parse(reader);
+            JSONObject modeObj = (JSONObject) jsonArray.get(1);
+            if (modeButton.getText().compareTo("Dark Mode") == 0) {
+                modeObj.put("mode", "light");
+            }
+            else {
+                modeObj.put("mode", "dark");
+            }
+            try (FileWriter file = new FileWriter("src\\sample\\db.json")) {
+                file.write(jsonArray.toJSONString());
+                file.flush();
+            }
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    Button theModeButton;
+    public void changeModeInitialize(String mode) {
+        if(mode.equals("dark")) {
+            theModeButton.setStyle("-fx-background-color: #f8f8f8");
+            theModeButton.setTextFill(Paint.valueOf("#1d1d1d"));
+            theModeButton.setText("Light Mode");
+            changeToDark();
         }
     }
 }

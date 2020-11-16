@@ -4,16 +4,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="863.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.271" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="863.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
         <Pane id="taskDisplayArea" fx:id="taskDisplayArea" prefHeight="476.0" prefWidth="321.0" style="-fx-background-color: rgba(53,89,119,0.8)" styleClass="taskSection">
             <children>
-                <Label id="dayNumberLabel" fx:id="dayNumberLabelId" alignment="CENTER" contentDisplay="CENTER" minWidth="100" layoutX="109.0" layoutY="49.0" text="0" textAlignment="CENTER" textFill="WHITE">
+                <Label id="dayNumberLabel" fx:id="dayNumberLabelId" alignment="CENTER" contentDisplay="CENTER" layoutX="109.0" layoutY="49.0" minWidth="100" text="0" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="90.0" />
                     </font>
                 </Label>
-                <Label fx:id="dayLabel" alignment="CENTER" minWidth="100" layoutX="109.0" layoutY="167.0" text="MONDAY" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="dayLabel" alignment="CENTER" layoutX="109.0" layoutY="167.0" minWidth="100" text="MONDAY" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -51,7 +51,7 @@
                 <children>
                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="27" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="27" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="0" GridPane.rowIndex="0">
                                 <font>
                                     <Font size="16.0" />
                                 </font></Button>
@@ -59,7 +59,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="28" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="28" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -68,7 +68,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="96.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="29" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="0" GridPane.columnIndex="2">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="29" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="2" GridPane.rowIndex="0">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -77,7 +77,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="182.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="30" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="0" GridPane.columnIndex="3">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="30" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="3" GridPane.rowIndex="0">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -86,7 +86,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="268.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="1" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="0" GridPane.columnIndex="4">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="1" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="4" GridPane.rowIndex="0">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -95,7 +95,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="354.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="2" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="0" GridPane.columnIndex="5">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="2" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="5" GridPane.rowIndex="0">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -104,7 +104,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="441.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="3" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="0" GridPane.columnIndex="6">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="3" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="6" GridPane.rowIndex="0">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -113,7 +113,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="528.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="4" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="0">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="4" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="0">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -122,7 +122,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="10.0" layoutY="93.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="5" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="1">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="5" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="1">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -131,7 +131,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="96.0" layoutY="93.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="6" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="2">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="6" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="2">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -140,7 +140,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="182.0" layoutY="93.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="7" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="3">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="7" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="3">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -149,7 +149,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="268.0" layoutY="93.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="8" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="4">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="8" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="4">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -158,7 +158,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="354.0" layoutY="93.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="9" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="5">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="9" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="5">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -167,7 +167,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="441.0" layoutY="93.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="10" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="6">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="10" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="6">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -176,7 +176,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="528.0" layoutY="93.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="11" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="0">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="11" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="0">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -185,7 +185,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="10.0" layoutY="176.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="12" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="1">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="12" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="1">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -194,7 +194,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="96.0" layoutY="176.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="13" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="2">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="13" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="2">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -203,7 +203,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="182.0" layoutY="176.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="14" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="3">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="14" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="3">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -212,7 +212,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="268.0" layoutY="176.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="15" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="4">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="15" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="4">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -221,7 +221,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="354.0" layoutY="176.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="16" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="5">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="16" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="5">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -230,7 +230,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="441.0" layoutY="176.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="17" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="6">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="17" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="6">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -239,7 +239,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="528.0" layoutY="176.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="3">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="18" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="0">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="18" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="0">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -248,7 +248,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="10.0" layoutY="258.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="19" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="1">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="19" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="1">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -257,7 +257,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="96.0" layoutY="258.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="20" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="2">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="20" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="2">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -266,7 +266,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="182.0" layoutY="258.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="21" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="3">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="21" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="3">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -275,7 +275,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="268.0" layoutY="258.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="22" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="4">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="22" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="4">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -284,7 +284,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="354.0" layoutY="258.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="23" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="5">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="23" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="5">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -293,7 +293,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="441.0" layoutY="258.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="24" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="6">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="24" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="6">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -302,7 +302,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="528.0" layoutY="285.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="25" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="4" GridPane.columnIndex="0">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="25" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="0" GridPane.rowIndex="4">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -311,7 +311,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="10.0" layoutY="175.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="26" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="4" GridPane.columnIndex="1">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="26" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -320,7 +320,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="96.0" layoutY="175.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="27" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="4" GridPane.columnIndex="2">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="27" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="2" GridPane.rowIndex="4">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -329,7 +329,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="182.0" layoutY="175.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="28" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="4" GridPane.columnIndex="3">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="28" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="3" GridPane.rowIndex="4">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -338,7 +338,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="268.0" layoutY="175.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="29" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="4" GridPane.columnIndex="4">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="29" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="4" GridPane.rowIndex="4">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -347,7 +347,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="354.0" layoutY="175.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="30" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="4" GridPane.columnIndex="5">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="30" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="5" GridPane.rowIndex="4">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -356,7 +356,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="441.0" layoutY="175.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="31" textAlignment="CENTER" textFill="#959595" GridPane.rowIndex="4" GridPane.columnIndex="6">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="31" textAlignment="CENTER" textFill="#959595" GridPane.columnIndex="6" GridPane.rowIndex="4">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -365,7 +365,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="528.0" layoutY="175.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="1" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="5" GridPane.columnIndex="0">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="1" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="0" GridPane.rowIndex="5">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -374,7 +374,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="10.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="2" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="5" GridPane.columnIndex="1">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="2" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -383,7 +383,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="96.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="3" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="5" GridPane.columnIndex="2">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="3" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="2" GridPane.rowIndex="5">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -392,7 +392,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="182.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="4" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="5" GridPane.columnIndex="3">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="4" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="3" GridPane.rowIndex="5">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -401,7 +401,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="268.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="5" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="5" GridPane.columnIndex="4">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="5" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="4" GridPane.rowIndex="5">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -410,7 +410,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="354.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="6" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="5" GridPane.columnIndex="5">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="6" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="5" GridPane.rowIndex="5">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -419,7 +419,7 @@
                     </AnchorPane>
                     <AnchorPane layoutX="441.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
                         <children>
-                            <Button styleClass="dayButton" layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" text="7" textAlignment="CENTER" textFill="#ccc" GridPane.rowIndex="5" GridPane.columnIndex="6">
+                            <Button layoutX="28.0" layoutY="12.0" minWidth="40" mnemonicParsing="false" onAction="#pressButton" styleClass="dayButton" text="7" textAlignment="CENTER" textFill="#ccc" GridPane.columnIndex="6" GridPane.rowIndex="5">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -519,9 +519,9 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <Button id="leftButton" styleClass="yearButton" layoutX="766.0" layoutY="41.0" minHeight="9.0" minWidth="9.0" mnemonicParsing="false" onAction="#updateYear" prefHeight="9.0" prefWidth="9.0" rotate="90.0" style="-fx-background-color: #737373; " text="yearDown" />
-        <Button id="rightButton" styleClass="yearButton" layoutX="824.0" layoutY="41.0" minHeight="9.0" minWidth="9.0" mnemonicParsing="false" onAction="#updateYear" prefHeight="9.0" prefWidth="9.0" rotate="-90.0" style="-fx-background-color: #737373;"  text="yearUp"/>
-        <Button layoutX="778.0" layoutY="445.0" minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #1d1d1d" text="Dark Mode" textFill="#f8f8f8"/>
+        <Button id="leftButton" layoutX="766.0" layoutY="41.0" minHeight="9.0" minWidth="9.0" mnemonicParsing="false" onAction="#updateYear" prefHeight="9.0" prefWidth="9.0" rotate="90.0" style="-fx-background-color: #737373; " styleClass="yearButton" text="yearDown" />
+        <Button id="rightButton" layoutX="824.0" layoutY="41.0" minHeight="9.0" minWidth="9.0" mnemonicParsing="false" onAction="#updateYear" prefHeight="9.0" prefWidth="9.0" rotate="-90.0" style="-fx-background-color: #737373;" styleClass="yearButton" text="yearUp" />
+        <Button fx:id="theModeButton" layoutX="778.0" layoutY="445.0" minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #1d1d1d" text="Dark Mode" textFill="#f8f8f8" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" />
     </children>
 </AnchorPane>

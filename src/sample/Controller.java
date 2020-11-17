@@ -18,8 +18,10 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Controller {
 
@@ -195,23 +197,7 @@ public class Controller {
             e.printStackTrace();
         }
 
-        for (Node node : gridPane.getChildren()) {
-            AnchorPane a = (AnchorPane) node;
-            for (Node innerNode : a.getChildren()) {
-                if (innerNode instanceof Button) {
-                    Button current = (Button) innerNode;
-                    if (current.getText().equals(dayNumberLabelId.getText())) {
-                        AnchorPane ap = (AnchorPane) current.getParent();
-                        for (Node innerInnerNode : ap.getChildren()) {
-                            if (innerInnerNode instanceof Label) {
-                                Label innerLabel = (Label) innerInnerNode;
-                                innerLabel.pseudoClassStateChanged(taskDot, true);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        updateTaskDots();
     }
 
     // Updates year when
@@ -231,6 +217,7 @@ public class Controller {
         displayNewMonth(cal, false);               //Update viewable calendar
         updateCurrentDayDisplay(currentDay);
         updateTaskList();
+        updateTaskDots();
     }
 
     public void updateYearAndDisplay(int shiftDirection) {
@@ -249,6 +236,7 @@ public class Controller {
             displayNewMonth(cal, false);
             updateCurrentDayDisplay(currentDay);
             updateTaskList();
+            updateTaskDots();
         }
     }
 
@@ -281,6 +269,7 @@ public class Controller {
                 updateCurrentDayDisplay(clickedButton);                                   //Update current day display
                 shiftCalendar(1);                                   //shift calendar and calendar
             }
+            updateTaskDots();
         }
         updateTaskList();
     }
@@ -309,13 +298,11 @@ public class Controller {
     }
 
     public void displayNewMonth(Calendar calendar, Boolean changedYearFromGrayButtons) {
-        System.out.println(calendar.getTime());
         monthSelection = calendar.get(Calendar.MONTH);
         if (!changedYearFromGrayButtons) {
             yearSelection = calendar.get(Calendar.YEAR);
         }
         calendar.set(Calendar.DAY_OF_MONTH, 1);
-        System.out.println("Starting Day:" + calendar.get(Calendar.DAY_OF_WEEK));
         //Stores value of previous month for indexing
         int previousMonth;
 
@@ -477,6 +464,7 @@ public class Controller {
                 e.printStackTrace();
             }
             taskField.clear();
+            updateTaskDots();
         }
     }
 
@@ -543,8 +531,11 @@ public class Controller {
 
         dayNumberLabelId.setTextFill(Paint.valueOf("white"));
         dayLabel.setTextFill(Paint.valueOf("white"));
-        taskTextArea.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-prompt-text-fill: #FFF; -fx-text-inner-color: #FFF;");
-        taskField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent transparent #FFF transparent; -fx-text-inner-color: #FFF; -fx-prompt-text-fill: #C0C0C0;");
+        taskTextArea.setStyle("-fx-background-color: transparent;" +
+                "-fx-border-color: transparent; -fx-prompt-text-fill: #FFF; -fx-text-inner-color: #FFF;");
+        taskField.setStyle("-fx-background-color: transparent;" +
+                "-fx-border-color: transparent transparent #FFF transparent;" +
+                "-fx-text-inner-color: #FFF; -fx-prompt-text-fill: #C0C0C0;");
         createTaskButton.setStyle("-fx-background-color: #FFF; -fx-cursor: hand");
 
         calendarPane.setStyle("-fx-background-color: #FFF;");
@@ -608,8 +599,11 @@ public class Controller {
         //change left pane colors
         dayNumberLabelId.setTextFill(Paint.valueOf("#373737"));
         dayLabel.setTextFill(Paint.valueOf("#373737"));
-        taskTextArea.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-prompt-text-fill: #373737; -fx-text-inner-color: #373737;");
-        taskField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent transparent #373737 transparent; -fx-text-inner-color: #373737; -fx-prompt-text-fill: #505050;");
+        taskTextArea.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;" +
+                "-fx-prompt-text-fill: #373737; -fx-text-inner-color: #373737;");
+        taskField.setStyle("-fx-background-color: transparent;" +
+                "-fx-border-color: transparent transparent #373737 transparent;" +
+                "-fx-text-inner-color: #373737; -fx-prompt-text-fill: #505050;");
         createTaskButton.setStyle("-fx-background-color: #373737; -fx-cursor: hand");
 
         //change right pane background
@@ -699,6 +693,89 @@ public class Controller {
         }
         else {
             createTaskButton.setStyle("-fx-background-color: #FFF; -fx-cursor: hand");
+        }
+    }
+
+    public void updateTaskDots() {
+        JSONParser parser = new JSONParser();
+        try (Reader reader = new FileReader("src\\sample\\db.json")) {
+            JSONArray jsonArray = (JSONArray) parser.parse(reader);
+            JSONArray allTasks = (JSONArray) ((JSONObject) jsonArray.get(0)).get("allTasks");
+            ArrayList<JSONObject> taskObjects = new ArrayList<>();
+            for (Object o : allTasks) {
+                JSONObject jsonObject = (JSONObject) o;
+                taskObjects.add(jsonObject);
+            }
+
+            ArrayList<DayButton> dayButtons = new ArrayList<>();
+            for (Node node : gridPane.getChildren()) {
+                AnchorPane a = (AnchorPane) node;
+                DayButton dayButton = new DayButton();
+                for (Node innerNode : a.getChildren()) {
+                    if (innerNode instanceof Button) {
+                        dayButton.setDayButton((Button) innerNode);
+                        dayButton.setDayNumber(((Button) innerNode).getText());
+                        dayButton.setDayPaintColor(((Button) innerNode).getTextFill());
+                    }
+                    else {
+                        dayButton.setDayButtonTaskDot((Label) innerNode);
+                        dayButton.getDayButtonTaskDot().pseudoClassStateChanged(taskDot, false);
+                    }
+                }
+                dayButtons.add(dayButton);
+            }
+
+            for (DayButton db : dayButtons) {
+                for (JSONObject j : taskObjects) {
+                    if (j.get("day").equals(db.getDayNumber())) {
+                        if ((db.getDayPaintColor().equals(Paint.valueOf(colorOfDays))
+                                || db.getDayPaintColor().equals(Paint.valueOf(colorOfStartingDay)))
+                                && j.get("month").equals(currentMonth.getText())
+                                && (long) j.get("year") == yearSelection) {
+                            db.getDayButtonTaskDot().pseudoClassStateChanged(taskDot, true);
+                        }
+                        else {
+                            if (GridPane.getRowIndex(db.getDayButton().getParent()) != null) {
+                                int row = GridPane.getRowIndex(db.getDayButton().getParent());
+                                if ((row == 4 || row == 5)
+                                        && db.getDayPaintColor().equals(Paint.valueOf(colorOfNotDays))) {
+                                    String nextMonthName = "";
+                                    for (int i = 0; i < monthButtons.length - 1; i++) {
+                                        if (monthButtons[i] == currentMonth) {
+                                            nextMonthName = monthButtons[i + 1].getText();
+                                        }
+                                    }
+                                    for (JSONObject j2 : taskObjects) {
+                                        if (j2.get("day").equals(db.getDayNumber())
+                                                && j2.get("month").equals(nextMonthName)
+                                                && (long) j2.get("year") == yearSelection) {
+                                            db.getDayButtonTaskDot().pseudoClassStateChanged(taskDot, true);
+                                        }
+                                    }
+                                } else if ((row == 0 || row == 1)
+                                        && db.getDayPaintColor().equals(Paint.valueOf(colorOfNotDays))) {
+                                    String previousMonthName = "";
+                                    for (int i = 0; i < monthButtons.length; i++) {
+                                        if (monthButtons[i] == currentMonth) {
+                                            previousMonthName = monthButtons[i - 1].getText();
+                                        }
+                                    }
+                                    for (JSONObject j2 : taskObjects) {
+                                        if (j2.get("day").equals(db.getDayNumber())
+                                                && j2.get("month").equals(previousMonthName)
+                                                && (long) j2.get("year") == yearSelection) {
+                                            db.getDayButtonTaskDot().pseudoClassStateChanged(taskDot, true);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        catch (IOException | ParseException e) {
+            e.printStackTrace();
         }
     }
 }

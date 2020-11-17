@@ -40,15 +40,6 @@
     -fx-background-radius: 30px;
 }
 
-/*.button:task-dot {*/
-/*    -fx-content-display: ' ';*/
-/*    -fx-width: 5px;*/
-/*    -fx-height: 5px;*/
-/*    -fx-position: absolute;*/
-/*    -fx-vgap: 70;*/
-/*    -fx-hgap: 7;*/
-/*    -fx-background-color: #1400c7;*/
-/*}*/
 .label:task-dot {
     -fx-background-color: #1400c7;
     -fx-background-radius: 30px;

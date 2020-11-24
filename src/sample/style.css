@@ -40,18 +40,18 @@
     -fx-background-radius: 30px;
 }
 
-.label:task-dot {
-    -fx-background-color: #1400c7;
+.label:task-dot-light {
+    -fx-background-color: #2a2a2a;
     -fx-background-radius: 30px;
 }
 
 .dayButton:hover {
-    -fx-background-color: #EDEDED;
+    -fx-background-color: #dbdbdb;
     -fx-cursor: hand;
 }
 
 .dayButtonSelected {
-    -fx-background-color: #EDEDED;
+    -fx-background-color: #dbdbdb;
     -fx-background-radius: 30px;
 }
 
@@ -65,13 +65,18 @@
     -fx-background-radius: 30px;
 }
 
+.label:task-dot-dark {
+    -fx-background-color: #dbdbdb;
+    -fx-background-radius: 30px;
+}
+
 .dayButtonDark:hover {
-    -fx-background-color: #252525;
+    -fx-background-color: #151515;
     -fx-cursor: hand;
 }
 
 .dayButtonDarkSelected {
-    -fx-background-color: #252525;
+    -fx-background-color: #151515;
     -fx-background-radius: 30px;
 }
 
@@ -90,12 +95,12 @@
 }
 
 .startingDayDark {
-    -fx-background-color: rgba(202,166,136,0.8);
+    -fx-background-color: rgb(187,134,252,0.8);
     -fx-background-radius: 30px;
 }
 
 .startingDayDark:hover {
-    -fx-background-color: rgba(202,166,136,0.8);
+    -fx-background-color: rgb(187,134,252,0.8);
     -fx-cursor: hand;
 }
 

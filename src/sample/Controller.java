@@ -111,7 +111,7 @@ public class Controller {
 
     private String notSelectedStylesheet, selectedStylesheet, startingDayStylesheet;
 
-    private PseudoClass taskDot = PseudoClass.getPseudoClass("task-dot");
+    private PseudoClass taskDot = PseudoClass.getPseudoClass("task-dot-light");
 
     public Controller() {
 
@@ -128,8 +128,8 @@ public class Controller {
         colorSelectedMonth = "#171717";
         colorOfMonths = "#868686";
 
-        colorOfDays = "#959595";
-        colorOfNotDays = "#ccc";
+        colorOfDays = "#646464";
+        colorOfNotDays = "#c8c8c8";
 
         colorOfWeekdays = "#737373";
 
@@ -515,8 +515,8 @@ public class Controller {
         colorSelectedMonth = "#171717";
         colorOfMonths = "#868686";
 
-        colorOfDays = "#959595";
-        colorOfNotDays = "#ccc";
+        colorOfDays = "#646464";
+        colorOfNotDays = "#c8c8c8";
 
         colorOfWeekdays = "#737373";
 
@@ -525,6 +525,7 @@ public class Controller {
         notSelectedStylesheet = "dayButton";
         selectedStylesheet = "dayButtonSelected";
         startingDayStylesheet = "startingDay";
+
         //************ End Universal Set **************//
 
         taskDisplayArea.setStyle("-fx-background-color: rgba(53,89,119,0.8)");
@@ -559,7 +560,7 @@ public class Controller {
             for (Node innerNode : a.getChildren()) {
                 if (innerNode instanceof Button) {
                     Button current = (Button) innerNode;
-                    if (current.getTextFill().equals(Paint.valueOf("#373737"))) {
+                    if (current.getTextFill().equals(Paint.valueOf("#2a2a2a"))) {
                         highlightStartingDay(current);
                     } else {
                         if (current.getTextFill().equals(Paint.valueOf("#4c4c4c"))) {
@@ -572,8 +573,14 @@ public class Controller {
                         current.getStyleClass().add("dayButton");
                     }
                 }
+                else {
+                    Label current = (Label) innerNode;
+                    current.pseudoClassStateChanged(taskDot, false);
+                }
             }
         }
+        taskDot = PseudoClass.getPseudoClass("task-dot-light");
+        updateTaskDots();
     }
 
     public void changeToDark() {
@@ -581,33 +588,34 @@ public class Controller {
         colorSelectedMonth = "#e8e8e8";
         colorOfMonths = "#797979";
 
-        colorOfDays = "#6a6a6a";
+        colorOfDays = "#727272";
         colorOfNotDays = "#4c4c4c";
 
         colorOfWeekdays = "#8c8c8c";
 
-        colorOfStartingDay = "#373737";
+        colorOfStartingDay = "#2a2a2a";
 
         notSelectedStylesheet = "dayButtonDark";
         selectedStylesheet = "dayButtonDarkSelected";
         startingDayStylesheet = "startingDayDark";
+
         //************ End Universal Set **************//
 
         //change left pane background
-        taskDisplayArea.setStyle("-fx-background-color: rgba(202,166,136,0.8)");
+        taskDisplayArea.setStyle("-fx-background-color: rgb(187,134,252,0.8)");
 
         //change left pane colors
-        dayNumberLabelId.setTextFill(Paint.valueOf("#373737"));
-        dayLabel.setTextFill(Paint.valueOf("#373737"));
+        dayNumberLabelId.setTextFill(Paint.valueOf("#2a2a2a"));
+        dayLabel.setTextFill(Paint.valueOf("#2a2a2a"));
         taskTextArea.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;" +
-                "-fx-prompt-text-fill: #373737; -fx-text-inner-color: #373737;");
+                "-fx-prompt-text-fill: #2a2a2a; -fx-text-inner-color: #2a2a2a;");
         taskField.setStyle("-fx-background-color: transparent;" +
-                "-fx-border-color: transparent transparent #373737 transparent;" +
-                "-fx-text-inner-color: #373737; -fx-prompt-text-fill: #505050;");
-        createTaskButton.setStyle("-fx-background-color: #373737; -fx-cursor: hand");
+                "-fx-border-color: transparent transparent #2a2a2a transparent;" +
+                "-fx-text-inner-color: #2a2a2a; -fx-prompt-text-fill: #404040;");
+        createTaskButton.setStyle("-fx-background-color: #2a2a2a; -fx-cursor: hand");
 
         //change right pane background
-        calendarPane.setStyle("-fx-background-color: #373737;");
+        calendarPane.setStyle("-fx-background-color: #2a2a2a;");
 
         //change month colors
         for(Button month: monthButtons) {
@@ -633,7 +641,7 @@ public class Controller {
                     if (current.getTextFill().equals(Paint.valueOf("#ffffff"))) {
                         highlightStartingDay(current);
                     } else {
-                        if (current.getTextFill().equals(Paint.valueOf("#ccc"))) {
+                        if (current.getTextFill().equals(Paint.valueOf("#c8c8c8"))) {
                             current.setTextFill(Paint.valueOf(colorOfNotDays));
                         } else {
                             current.setTextFill(Paint.valueOf(colorOfDays));
@@ -643,8 +651,14 @@ public class Controller {
                         current.getStyleClass().add("dayButtonDark");
                     }
                 }
+                else {
+                    Label current = (Label) innerNode;
+                    current.pseudoClassStateChanged(taskDot, false);
+                }
             }
         }
+        taskDot = PseudoClass.getPseudoClass("task-dot-dark");
+        updateTaskDots();
     }
 
     @FXML
